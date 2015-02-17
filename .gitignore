@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Compiled Dirs (http://nodejs.org/api/addons.html)
+client/platforms/
+client/plugins/
+client/www/lib/
+
+#OS Specific Annoyances
+.DS_Store
+
+# Dependency directorys
+# Deployed apps should consider commenting these lines out:
+# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-
+node_modules/
+bower_components/
