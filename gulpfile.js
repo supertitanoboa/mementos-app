@@ -1,40 +1,57 @@
+// include gulp
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
+
+// include plugins
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sh = require('shelljs');
+var jshint = require('gulp-jshint');
+var mocha = require('gulp-mocha');
 
 // the paths to our app files
 var paths = {
-  sass: ['./scss/**/*.scss']
+  scripts: 'client/www/app/**/*.js',
+  html:    'client/www/app/**/*.html',
+  test:    'client/www/test/**/*.js',
+  sass:    'client/scss/**/*.scss'
 };
+
+// run linting
+gulp.task('lint', function(done) {
+  'use strict';
+  return gulp.src(['gulpfile.js', paths.scripts])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'), done);
+});
+
+// run tests
+gulp.task('mocha', function(done) {
+  'use strict';
+  return gulp.src(paths.test)
+    .pipe(mocha({reporter: 'spec'}), done);
+});
 
 // compile sass
 gulp.task('sass', function(done) {
-  gulp.src('./client/scss/ionic.app.scss')
+  gulp.src('/client/scss/ionic.app.scss')
     .pipe(sass())
-    .pipe(gulp.dest('./client/www/css/'))
+    .pipe(gulp.dest('/client/www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./client/www/css/'))
+    .pipe(gulp.dest('/client/www/css/'))
     .on('end', done);
 });
 
+// run tests
+gulp.task('test', ['mocha']);
+
+// FIXME: edit to watch all appropriate files
 gulp.task('watch', function() {
+  'use strict';
   gulp.watch(paths.sass, ['sass']);
 });
 
-// FIXME: what should be included in the install task.  Is this even necessary if compiling to native ios
-/*gulp.task('install', ['git-check'], function() {
-  return bower.commands.install()
-    .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-    });
-});*/
-
+// FIXME: to run all appropriate tasks on start
 gulp.task('default', ['sass']);
