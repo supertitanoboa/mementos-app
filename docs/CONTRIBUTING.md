@@ -156,3 +156,35 @@ The feature you're working on is perfect, and the code you've written would make
 1. Once everything checks out, merge the pull request and keep on working!
 
 
+### Naming Branches
+
+When naming branches, it is important to consider the task at hand.  If you are creating a feature, it is fine to name the branch you are working on after that feature. For bug fixes, you should be prefixing your branch name with 'bug/'. This will ensure that we can go back to track any issues that have occurred throughout the project.
+
+So if you encounter a bug while working on branch 'your-sweet-new-branch', these are the steps to follow:
+
+1. Commit your current changes on 'your-sweet-new-branch'.
+
+1. Checkout a new branch with the name 'bug/your-sweet-new-branch':
+
+    ```bash
+    $ git checkout -b bug/your-sweet-new-branch
+    ``` 
+1. Fix the bugs on your newly created branch.  When the bugs / issues have been resolved, commit your changes on the 'bug/your-sweet-new-branch' branch and use the following to merge your changes back into 'your-sweet-new-branch':
+
+    ```bash
+    $ git checkout your-sweet-new-branch
+    $ git rebase bug/your-sweet-new-branch
+    ``` 
+
+1. You can now remove your old bug branch since the changes you made on the bug branch have been added back on to your feature branch.
+
+    ```bash
+    $ git branch -d bug/your-sweet-new-branch
+    ``` 
+
+Once you have completed any work on your branch, be sure to update the branch name to the new feature you will be working on.  You can easily rename a branch name with the following command:
+
+  ```bash
+  $ git branch -m <old-branch-name> <new-branch-name>
+  ```
+
