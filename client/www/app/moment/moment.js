@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-  .module('app.moment')
-  .controller('Moment', Moment);
+    .module('app.moment')
+    .controller('Moment', Moment);
 
   /* @ngInject */
   function Moment() {
