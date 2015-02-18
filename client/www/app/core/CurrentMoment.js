@@ -1,7 +1,8 @@
 (function() {
 
-  angular.module('app.core')
-  .factory('CurrentMoment', CurrentMoment);
+  angular
+    .module('app.core')
+    .factory('CurrentMoment', CurrentMoment);
 
   function CurrentMoment() {
     var moment = {}
@@ -10,7 +11,7 @@
       set: function(obj) {
         moment = angular.copy(obj);
       },
-      get: function(obj) {
+      get: function() {
         return angular.copy(moment);
       }
     };

@@ -20,7 +20,7 @@ describe('CurrentMoment', function() {
     CurrentMoment.set(obj);
     
     expect(CurrentMoment.get()).not.toBe(obj);
-    expect(stringified).toEqual(JSON.stringify(obj));
+    expect(CurrentMoment.get()).toEqual(obj);
   });
 
 });
