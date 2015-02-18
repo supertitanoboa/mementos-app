@@ -6,7 +6,10 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
-var mocha = require('gulp-mocha');
+/*old testing framework
+var mocha = require('gulp-mocha');*/
+var karma = require('gulp-karma');
+var shell = require('gulp-shell');
 
 // the paths to our app files
 var paths = {
@@ -24,11 +27,23 @@ gulp.task('lint', function(done) {
     .pipe(jshint.reporter('default'), done);
 });
 
-// run tests
+/*// old run tests
 gulp.task('mocha', function(done) {
   'use strict';
   return gulp.src(paths.test)
     .pipe(mocha({reporter: 'spec'}), done);
+});*/
+
+// new run tests
+gulp.task('karma', function() {
+  return gulp.src(paths.test)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      throw err;
+    });
 });
 
 // compile sass
@@ -45,7 +60,7 @@ gulp.task('sass', function(done) {
 });
 
 // run tests
-gulp.task('test', ['mocha']);
+gulp.task('test', ['karma']);
 
 // FIXME: edit to watch all appropriate files
 gulp.task('watch', function() {
