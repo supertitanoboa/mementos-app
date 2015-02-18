@@ -5,22 +5,22 @@ module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    basePath: './',
+    basePath: '',
 
     frameworks: ['jasmine', 'mocha', 'sinon', 'chai', 'chai-sinon'],
 
     // list of files / patterns to load in the browser
     files: [
       // lib files
-      'client/www/lib/angular/angular.js',
+      'client/www/lib/ionic/js/ionic.bundle.js',
+      'client/www/lib/angular-mocks/angular-mocks.js',
+      'client/www/lib/angular-ui-router/release/angular-ui-router.js',
       'client/www/lib/angular-animate/angular-animate.js',
       'client/www/lib/angular-sanitize/angular-sanitize.js',
-      'client/www/lib/angular-ui-router/relase/angular-ui-router.js',
-      'client/www/lib/ionic/js/ionic-angular.js',
-      'client/www/lib/ionic/js/ionic-bundle.js',
-      'client/www/lib/ionic/js/ionic.js',
-      
-      // app
+
+      // app - need to load feature modules first, otherwise app breaks
+      'client/www/app/moment/moment.module.js',
+      'client/www/app/core/core.module.js',
       'client/www/app/**/*.js',
 
       // all specs

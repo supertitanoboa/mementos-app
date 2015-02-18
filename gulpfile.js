@@ -36,7 +36,7 @@ gulp.task('mocha', function(done) {
 
 // new run tests
 gulp.task('karma', function() {
-  return gulp.src(paths.test)
+  return gulp.src('./foobar') // 
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'run'
