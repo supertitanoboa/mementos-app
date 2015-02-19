@@ -1,149 +1,97 @@
-// FIXE: to be edited
-/*var mockData = (function() {
+var mockData = (function() {
+  var mementos;
+  var mementosDetail;
+
+  mementos = {
+    'received' : [{
+      'ID': 1,
+      'title': 'Mock Memento 1',
+      'authors' : ['User2'],
+      'recipients'  : ['User1']
+    }],
+    'created' : [{
+      'ID': 2,
+      'title': 'Mock Memento 2',
+      'authors' : ['User1'],
+      'recipients'  : ['User2']
+    }, {
+      'ID': 3,
+      'title': 'Mock Memento 3',
+      'authors' : ['User1'],
+      'recipients'  : ['User2']
+    }]
+  };
+
+  mementosDetail = [{
+    'ID' : 1,
+    'title' : 'Mock Memento 1',
+    'owner' : 'User2',
+    'authors' : ['User2'],
+    'recipients'  : ['User1'],
+    'options' : {
+      'public'  : false,
+      'releaseType' : 'default',
+    },
+    'latestReleasedIndex' : 1,
+    'moments' : [{
+      'ID' : 1,
+      'title' : 'Mock Moment 1',
+      'author' : ['User 2'],
+      'releaseDate' : '01/01/2016',
+      'meta' : {
+        'creationDate' : '01/01/2015',
+        'location' : {
+          'latitude' : 0,
+          'longitude' : 0,
+          'place' : 'Mock place'
+        }
+      },
+      content : [{
+        'type' : 'text',
+        'url' : 'Mock text'
+      }]
+    }]
+  }];
+
   return {
-    getMockMementos: getMockMementos
+    getMockMementos: getMockMementos,
+    getMockMemento: getMockMemento,
+    saveMockMemento: saveMockMemento
   };
 
   function getMockMementos() {
-    return [{
-      'ID' : 1,
-      'title' : 'For mom',
-      'owner' : 'Wes',
-      'authors' : ['Wes'],
-      'recipients'  : ['Mom'],
-      'options' : {
-      'public'  : false,
-      'releaseType' : 'default',
-      },
-      'latestReleasedIndex' : 1, // associated with moments array.  latest moment released
-      'moments' : [{
-        'ID' : 1,
-        'title' : 'Hi mom!',
-        'author' : ['Wes'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my awesome note to my mom who is awesome.  Awesome bro!!' // using media instead of url pointing to it for time being
-        }]
-      }, {
-        'ID' : 2,
-        'title' : 'love youuuuuu mom!',
-        'author' : ['Wes'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my looooooooooove noooote tooo mmyyy mom!!' // using media instead of url pointing to it for time being
-        }]
-      }]
-    }, {
-      'ID' : 2,
-      'title' : 'For my girlfriend',
-      'owner' : 'Wes',
-      'authors' : ['Wes'],
-      'recipients'  : ['Girlfriend'],
-      'options' : {
-      'public'  : false,
-      'releaseType' : 'default',
-      },
-      'latestReleasedIndex' : 1, // associated with moments array.  latest moment released
-      'moments' : [{
-        'ID' : 3,
-        'title' : 'Hey girl!',
-        'author' : ['Wes'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my awesome note to my girlfriend who is awesome.  Awesome bro!!' // using media instead of url pointing to it for time being
-        }]
-      }, {
-        'ID' : 4,
-        'title' : 'love youuuuuu girl!',
-        'author' : ['Wes'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my looooooooooove noooote tooo mmyyy girl!!' // using media instead of url pointing to it for time being
-        }]
-      }]
-    }, {
-      'ID' : 3,
-      'title' : 'For Wes',
-      'owner' : 'Mom',
-      'authors' : ['Mom'],
-      'recipients'  : ['Wes'],
-      'options' : {
-      'public'  : false,
-      'releaseType' : 'default',
-      },
-      'latestReleasedIndex' : 1, // associated with moments array.  latest moment released
-      'moments' : [{
-        'ID' : 5,
-        'title' : 'Hey son!',
-        'author' : ['Mom'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my awesome note to my Wes who is awesome.  Awesome!!' // using media instead of url pointing to it for time being
-        }]
-      }, {
-        'ID' : 6,
-        'title' : 'love youuuuuu son!',
-        'author' : ['Mom'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace awesome'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is my looooooooooove noooote tooo mmyyy son!!' // using media instead of url pointing to it for time being
-        }]
-      }]
-    }];
+    return mementos;
   }
 
-})();*/
+  function getMockMemento(ID) {
+    var memento;
+    var i;
+
+    for (i = 0; i < mementosDetail.length; i++) {
+      if (mementosDetail[i].ID === ID) {
+        memento = mementosDetail[i];
+      }
+    }
+
+    return memento;
+  }
+
+  function saveMockMemento(obj) {
+    /*
+    NOTE: unecessary for current testing setup
+    // add to mementos detail
+    mementosDetail.push(obj);
+    */
+    
+    // add to mementos
+    var mementosObj = {
+      'ID': obj.ID,
+      'title': obj.title,
+      'authors' : obj.authors,
+      'recipients'  : obj.recipients
+    };
+
+    mementos.created.push(mementosObj);
+  }
+
+})();

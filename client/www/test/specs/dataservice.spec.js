@@ -1,6 +1,6 @@
+
 describe('dataservice', function() {
   var dataservice;
-  var mocks = {};
 
   beforeEach(function() {
     module('app');
@@ -11,8 +11,19 @@ describe('dataservice', function() {
       $rootScope = _$rootScope_;  
     });
 
-    /*mocks = mockData.getMockMementos();*/
+    sinon.stub(dataservice, 'getMementos', function() {
+      return mockData.getMockMementos();
+    });
 
+    sinon.stub(dataservice, 'getMemento', function() {
+      return mockData.getMockMemento(1);
+    });
+
+  });
+
+  afterEach(function() {
+    dataservice.getMementos.restore(); // Unwraps stub
+    dataservice.getMemento.restore();
   });
 
   it('should be registered', function() {
@@ -24,17 +35,12 @@ describe('dataservice', function() {
       expect(dataservice.getMementos).not.toBe(null);
     });
     
-    // FIXME: come back to these tests... how to mock data for method calls?
-    it('should get 3 mementos', function() {
+    it('should get 1 received memento', function() {
+      expect(dataservice.getMementos().received.length).toEqual(1);
+    });
 
-      /*// use this when endpoints set up
-      $httpBackend.when('GET', '/1/api/mementos').respond(200, mocks);
-      dataservice.getMementos().then(function(data) {
-        expect(data.length).toEqual(3);
-        done();
-      });
-      $rootScope.$apply();
-      $httpBackend.flush();*/
+    it('should get 2 created mementos', function() {
+      expect(dataservice.getMementos().created.length).toEqual(2);
     });
   });
 
@@ -43,7 +49,9 @@ describe('dataservice', function() {
       expect(dataservice.getMemento).not.toBe(null);
     });
 
-    // add additional tests
+    it('should get 1 memento', function() {
+      expect(dataservice.getMemento(1)).toEqual(jasmine.any(Object));
+    });
   });
 
   describe('saveMoment function', function() {
@@ -54,12 +62,13 @@ describe('dataservice', function() {
     // add additional tests
   });
 
-  describe('saveMementos function', function() {
+  describe('saveMemento function', function() {
     it('should exist', function() {
-      expect(dataservice.saveMementos).not.toBe(null);
+      expect(dataservice.saveMemento).not.toBe(null);
     });
 
-    // add additional tests
+    // NOTE: these tests are very similar to what is in each controller.
+    // should be thinking about these in terms of http request
   });
 
   describe('addMoment function', function() {

@@ -1,0 +1,22 @@
+<ion-view view-title="{{vm.title}}">
+  <ion-content>
+    
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="Memento Title" ng-model="vm.currentMemento.title">
+      </label>
+    </div>
+    
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="Recipients" ng-model="vm.currentMemento.recipients[0]">
+      </label>
+    </div>
+    
+    <!-- FIXME: both link and button need to be disabled until user has inputed validated info -->
+    <button ng-disabled="!vm.currentMemento.title || !vm.currentMemento.recipients[0]" on-tap="vm.saveMemento(vm.currentMemento)" class="button button-block button-positive">
+     Save
+    </button>
+
+  </ion-content>
+</ion-view>
