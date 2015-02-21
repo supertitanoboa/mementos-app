@@ -21,6 +21,7 @@
     "chai": "^2.0.0",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.2.0",
+    "gulp-concat-css": "^2.1.0",
     "gulp-jshint": "^1.9.2",
     "gulp-karma": "0.0.4",
     "gulp-minify-css": "^0.3.0",

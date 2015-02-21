@@ -1,13 +1,13 @@
-<div>
+<div class="new-items">
   <div class="new-item-placeholder">
-  	<new-text ng-if="typeSelected === 'text'"></new-text>
+    <new-text ng-if="typeSelected === 'text'"></new-text>
   <div>
 
-  <button on-tap="selectType('text')" ng-if="newItemButtonWasTapped" class="new-text-button">Add Text</button>
-  <button ng-if="newItemButtonWasTapped" class="new-image-button">Add Image</button>
-
-  <button ng-disabled="newItemButtonWasTapped" class="new-item-button">+</button>
+  <div class="row">
+    <button on-tap="selectType('text')" class="col-25 new-text-button button button-outline ion-compose button-calm"></button>
+    <button class="col-25 new-image-button button button-outline ion-image button-calm"></button>
+    <button class="col-25 new-video-button button button-outline ion-videocamera button-calm"></button>
+    <button class="col-25 new-audio-button button button-outline ion-mic-a button-calm"></button>
+  </div>
   
-  <button ng-if="newItemButtonWasTapped" class="new-video">Add Video</button>
-  <button ng-if="newItemButtonWasTapped" class="new-audio">Add Audio</button>
 </div>

@@ -20,33 +20,13 @@
         return directive;
 
         function link(scope, element, attrs) {
-          scope.typeSelected           = null;
-          scope.newItemButtonWasTapped = false;
+          scope.typeSelected           = null;          ;
           scope.insertIntoMoment       = insertIntoMoment;          
           scope.selectType             = selectType;
           scope.done                   = done;
 
-          activate();
-
           ///////////////////////////////////////
           
-          function activate() {
-            $ionicGesture.on('tap', function (ev) {
-              showThenHideButtons();
-            }, element);
-          }
-
-          function showThenHideButtons() {
-            scope.newItemButtonWasTapped = true;
-            
-            $timeout(function() {
-              scope.newItemButtonWasTapped = false;              
-              scope.$apply();              
-            }, 3500);            
-            
-            scope.$apply();          
-          }
-
           function insertIntoMoment(type, url) {
             scope.moment.content.push({
               type: type,

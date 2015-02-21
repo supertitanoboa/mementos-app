@@ -4,6 +4,7 @@ var gulp = require('gulp');
 // include plugins
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
+var concatCss = require('gulp-concat-css');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
 /*old testing framework
@@ -13,10 +14,14 @@ var shell = require('gulp-shell');
 
 // the paths to our app files
 var paths = {
-  scripts: 'client/www/app/**/*.js',
-  html:    'client/www/app/**/*.html',
-  test:    'client/www/test/**/*.js',
-  sass:    'client/scss/**/*.scss'
+  scripts:  'client/www/app/**/*.js',
+  appRoot:  'client/www/app/',
+  html:     'client/www/app/**/*.html',
+  test:     'client/www/test/**/*.js',
+  sass:     'client/www/content/sass/**/*.scss',
+  sassRoot: 'client/www/content/sass/',
+  css:      'client/www/content/css/**/*.css',
+  cssRoot:  'client/www/content/css/'
 };
 
 // run linting
@@ -48,15 +53,13 @@ gulp.task('karma', function() {
 
 // compile sass
 gulp.task('sass', function(done) {
-  gulp.src('/client/scss/ionic.app.scss')
+  gulp.src(paths.sass)
     .pipe(sass())
-    .pipe(gulp.dest('/client/www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('/client/www/css/'))
-    .on('end', done);
+    .pipe(concatCss('app.css'))    
+    // .pipe(minifyCss({
+    //   keepSpecialComments: 0
+    // }))
+    .pipe(gulp.dest(paths.cssRoot))
 });
 
 // run tests

@@ -2,9 +2,12 @@
   <ion-content class="padding moment">
     
     <!-- Include a editable input box if editable -->
-    
-    <input type="text" ng-model="vm.currentMoment.title" placeholder="Moment Title"/>
-        
+
+    <div class="list list-inset">
+      <label class="item item-input moment-title">
+        <input type="text" ng-model="vm.currentMoment.title" placeholder="Moment Title"/>
+      </label>
+    </div>
 
     <!-- // ng-repeat over all items in the moment -->
     <div class="items">
@@ -19,8 +22,8 @@
     <!-- // Allow users to create a new item if editable -->
     <new-item moment="vm.currentMoment"></new-item>    
 
-    <!-- if isEditable: <save></save> -->
-    <button on-tap="vm.saveMoment(vm.currentMoment)" class="save-button">Save</button>
+
+    <button class="button button-outline button-block button-positive moment-save" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
 
   </ion-content>
 </ion-view>
