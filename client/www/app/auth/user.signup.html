@@ -1,0 +1,31 @@
+<ion-view view-title="Sign Up">
+  <ion-content>
+    
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" ng-model="vm.credentials.email" placeholder="email">
+      </label>
+      
+      <label class="item item-input">
+        <input type="password" ng-model="vm.credentials.password" placeholder="password">
+      </label>
+      
+      <label class="item item-input">
+        <input ng-pattern="{{ vm.credentials.password }}" type="password" ng-model="vm.repeatPassword" placeholder="repeat password">
+      </label>
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-positive" on-tap="vm.signup(vm.credentials)">
+        Sign Up
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="item item-text-wrap">
+        <a href="#/signin" class="button icon-right ion-chevron-right button-clear button-dark">Already a member? Signin </a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
