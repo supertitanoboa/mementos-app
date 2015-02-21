@@ -30,14 +30,18 @@
       getMemento: getMemento,
       saveMoment: saveMoment,
       saveMemento: saveMemento,
-      addMoment: addMoment
+      addMoment: addMoment,
+      /*NOTE: temp until server is connected*/
+      getMoment: getMoment
     };
 
     return service;
     
     // NOTE: server will only return mementos associated with user
     function getMementos() {
-      return mementos;
+      return $q(function(resolve, reject) {
+        resolve(mementos);
+      });
     }
     
     // NOTE: memento ID will be supplied from getMementos call in list view
@@ -45,38 +49,19 @@
       var memento;
       var i;
 
-      ID = ID || 1;
-
       for (i = 0; i < mementosDetail.length; i++) {
         if (mementosDetail[i].ID === ID) {
           memento = mementosDetail[i];
         }
       }
 
-      return memento;
+      return $q(function(resolve, reject) {
+        resolve(memento);
+      });
     }
     
     // NOTE: moment is saved to moments table first, then added to memento
     function saveMoment(obj) {
-      obj = obj || {
-        'ID' : null,
-        'title' : 'fake moment',
-        'author' : ['Wes'],
-        'releaseDate' : '01/01/2016',
-        'meta' : {
-          'creationDate' : '01/01/2015',
-          'location' : {
-            'latitude' : 0,
-            'longitude' : 0,
-            'place' : 'Someplace fake'
-          }
-        },
-        content : [{
-          'type' : 'text',
-          'url' : 'This is a fake moment' // using media instead of url pointing to it for time being
-        }]
-      };
-
       obj.ID = momentsSize() + 1;
       
       moments.push(obj);
@@ -85,29 +70,31 @@
         resolve(obj.ID);
       });
     }
+
+    // NOTE: temp until server is connected
+    function getMoment(ID) {
+      var moment;
+      var i;
+
+      for (i = 0; i < moments.length; i++) {
+        if(moments[i].ID === ID) {
+          moment = moments[i];
+        }
+      }
+
+      return $q(function(resolve, reject) {
+        resolve(moment);
+      });
+    }
     
     // NOTE: addMoment happens concurrently with memento creation
     function saveMemento(obj) {
-      obj = obj || {
-        'ID' : null,
-        'title' : 'Fake memento',
-        'owner' : 'Wes',
-        'authors' : ['Wes'],
-        'recipients'  : ['Mom'],
-        'options' : {
-        'public'  : false,
-        'releaseType' : 'default',
-        },
-        'latestReleasedIndex' : 1, // associated with moments array.  latest moment released
-        'moments' : []
-      };
-
       obj.ID = mementosSize() + 1;
 
       // add to mementos detail
       mementosDetail.push(obj);
       
-      // add to mementos
+      // NOTE: adds to mementos.  Below is TEMPORARY as server will handle adjusting the memento object
       var mementosObj = {
         'ID': obj.ID,
         'title': obj.title,
@@ -115,25 +102,39 @@
         'recipients'  : obj.recipients
       };
 
-      if (obj.authors[0] === 'Wes') {
+      if (obj.authors[0] === 'Wes' || obj.authors[0] === 'User1') {
         mementos.created.push(mementosObj);
       } else {
         mementos.received.push(mementosObj);
       }
+      
+      // TEMP
+      ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+      return $q(function(resolve, reject) {
+        resolve(obj.ID);
+      });
     }
     
     // NOTE: adds moment to selected memento
-    function addMoment(ID) {
+    function addMoment(mementoID, momentID) {
       var i;
 
-      ID = ID || 1;
-
       for (i = 0; i < mementosDetail.length; i++) {
-        if (mementosDetail[i].ID === ID) {
-          var moment = moments[momentsSize() - 1];
-          mementosDetail[i].moments.push(moment);
+        if (mementosDetail[i].ID === mementoID) {
+          return getMoment(momentID)
+            .then(function(data) {
+              mementosDetail[i].moments.push(data);    
+            })
+            .catch(function(err) {
+              console.error('There was an error getting the moment:', err);
+            });
         }
       }
+
+      return $q(function(resolve, reject) {
+        resolve(momentID);
+      });
     }
     
     // NOTE: temp method to keep track of moment ID.  
@@ -149,21 +150,3 @@
   }
 
 })();
-
-/*for testing
-
-var mementosBefore = dataservice.getMementos();
-console.log('Mementos Before', mementosBefore);
-
-var mementoBefore = dataservice.getMemento();
-console.log('Memento Before', mementoBefore);
-
-dataservice.saveMoment();
-dataservice.saveMemento();
-dataservice.addMoment();
-
-var mementosAfter = dataservice.getMementos();
-console.log('Mementos After', mementosAfter);
-
-var mementoAfter = dataservice.getMemento();
-console.log('Memento After', mementoAfter);*/

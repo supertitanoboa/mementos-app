@@ -1,1 +1,13 @@
-memento.html
+<ion-view view-title="{{vm.memento.title}}">
+  <ion-content>
+
+    <div ng-repeat="moment in vm.memento.moments">
+
+      <div ng-repeat="item in moment.content">
+        {{item.url}}
+      </div>
+    
+    </div>
+  
+  </ion-content>
+</ion-view>

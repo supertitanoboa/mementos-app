@@ -19,6 +19,9 @@ module.exports = function(config) {
       'client/www/lib/angular-sanitize/angular-sanitize.js',
 
       // app - need to load feature modules first, otherwise app breaks
+      'client/www/app/memento-create/memento.create.module.js',
+      'client/www/app/memento/memento.module.js',
+      'client/www/app/mementos-list/mementos.module.js',
       'client/www/app/moment/moment.module.js',
       'client/www/app/core/core.module.js',
       'client/www/app/**/*.js',

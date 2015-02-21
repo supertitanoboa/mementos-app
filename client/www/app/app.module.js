@@ -5,7 +5,10 @@
     
     'ionic', 
     'app.core',
-    'app.moment'
+    'app.moment',
+    'app.mementos',
+    'app.memento',
+    'app.memento.create'
   ])
 
   .run(function($ionicPlatform) {
@@ -29,6 +32,24 @@
         url: '/moment',
         templateUrl: 'app/moment/moment.create.html',
         controller: 'MomentCreate as vm'
+      })
+
+      .state('mementos', {
+        url: '/mementos',
+        templateUrl: 'app/mementos-list/mementos.html',
+        controller: 'Mementos as vm'
+      })
+        // nested state
+        .state('memento', {
+          url: '/mementos/:ID',
+          templateUrl: 'app/memento/memento.html',
+          controller: 'Memento as vm'
+        })
+
+      .state('mementoCreate', {
+        url: '/create',
+        templateUrl: 'app/memento-create/memento.create.html',
+        controller: 'MementoCreate as vm'
       });
 
     // if none of the above states are matched, use this as the fallback
