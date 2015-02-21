@@ -25,16 +25,14 @@
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-    .state('moment', {
-      url: '/moment',
-      templateUrl: 'app/moment/moment.html',
-      controller: 'Moment',
-      controllerAs: 'vm'
-    });
+      .state('moment', {
+        url: '/moment',
+        templateUrl: 'app/moment/moment.create.html',
+        controller: 'MomentCreate as vm'
+      });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/moment');
-
   });
   
 })();

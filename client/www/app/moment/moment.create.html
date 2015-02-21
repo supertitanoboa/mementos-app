@@ -1,0 +1,26 @@
+<ion-view view-title="Capture This Current Moment">
+  <ion-content class="padding moment">
+    
+    <!-- Include a editable input box if editable -->
+    
+    <input type="text" ng-model="vm.currentMoment.title" placeholder="Moment Title"/>
+        
+
+    <!-- // ng-repeat over all items in the moment -->
+    <div class="items">
+      <div ng-repeat="item in vm.currentMoment.content">
+        <show-text  ng-if="item.type === 'text' "></show-text>
+        <show-image ng-if="item.type === 'image'"></show-image>
+        <show-audio ng-if="item.type === 'audio'"></show-audio>
+        <show-video ng-if="item.type === 'video'"></show-video>        
+      </div>
+    </div>
+ 
+    <!-- // Allow users to create a new item if editable -->
+    <new-item moment="vm.currentMoment"></new-item>    
+
+    <!-- if isEditable: <save></save> -->
+    <button on-tap="vm.saveMoment()" class="save-button">Save</button>
+
+  </ion-content>
+</ion-view>

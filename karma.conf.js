@@ -22,6 +22,9 @@ module.exports = function(config) {
       'client/www/app/moment/moment.module.js',
       'client/www/app/core/core.module.js',
       'client/www/app/**/*.js',
+       
+      // html templatess 
+      'client/www/app/**/*.html',
 
       // all specs
       'client/www/test/**/*.js'
@@ -36,7 +39,15 @@ module.exports = function(config) {
       // Source files you want to generate coverage reports for
       // This should not include tests or libraries
       // These files will be instrumented by Istanbul
-      'client/www/app/**/*.js': ['coverage']
+      'client/www/app/**/*.js': ['coverage'],
+      'client/www/app/**/*.html': ['ng-html2js']
+    },
+
+    ngHtml2JsPreprocessor: {
+      // setting this option will create only a single module that contains templates
+      // from all the files, so you can load them all with module('foo')
+      stripPrefix: 'client/www/',
+      moduleName: 'templates'
     },
 
     // progress reporter: lists each test run and whether they pass/fail
@@ -73,7 +84,8 @@ module.exports = function(config) {
       'karma-coverage',
       'karma-mocha',
       'karma-chai',
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-ng-html2js-preprocessor'
     ]
   });
 };
