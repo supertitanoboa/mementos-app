@@ -1,0 +1,11 @@
+.new-items .buttons {
+  display: block;
+  margin: 0 auto;
+}
+
+.new-items .buttons button {
+  display: inline-block;
+}
+.moment-title input[type='text'] {
+  text-align: center;
+}
