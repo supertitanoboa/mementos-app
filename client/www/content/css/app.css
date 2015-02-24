@@ -6,6 +6,14 @@
 .new-items .buttons button {
   display: inline-block;
 }
+
+.item-image-wrap img {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 85vw;
+  margin: 0 auto;
+}
 .moment-title input[type='text'] {
   text-align: center;
 }

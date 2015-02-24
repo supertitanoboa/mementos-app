@@ -20,7 +20,7 @@
         return directive;
 
         function link(scope, element, attrs) {
-          scope.typeSelected           = null;          ;
+          scope.typeSelected           = null;
           scope.insertIntoMoment       = insertIntoMoment;          
           scope.selectType             = selectType;
           scope.done                   = done;
