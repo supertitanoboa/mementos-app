@@ -25,10 +25,13 @@
 
     function getMementos() {
       return dataservice.getMementos()
-        .then(function(data) {
-          console.log('Successfull getting mementos');
-
-          vm.mementos = data;
+        .then(function(resp) {
+          console.log('Successful getting mementos');
+          
+          /*FIXME: when connected to server, will return an object with data property
+          vm.mementos = resp.data;*/
+          
+          vm.mementos = resp;
         })
         .catch(function(err) {
           console.error('There was an error getting mementos:', err);

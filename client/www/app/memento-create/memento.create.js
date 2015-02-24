@@ -24,7 +24,7 @@
     function saveMemento(currentMemento) {
       return dataservice.saveMemento(currentMemento)
         .then(function(mementoID) {
-          
+          // NOTE: response is an object when received from server
           console.log('Memento ' + mementoID + ' has been saved.');
           $state.go('memento', {ID: mementoID});
           
