@@ -9,7 +9,7 @@
   /*FIXME: makesure ngInject is working during minification*/
   
   /* @ngInject */ 
-  function dataservice($q) {
+  function dataservice($q, $http) {
     
 
     // MOCKED DATA
@@ -32,7 +32,9 @@
       saveMemento: saveMemento,
       addMoment: addMoment,
       /*NOTE: temp until server is connected*/
-      getMoment: getMoment
+      getMoment: getMoment,
+      signup: signup,
+      signin: signin
     };
 
     return service;
@@ -42,6 +44,46 @@
       return $q(function(resolve, reject) {
         resolve(mementos);
       });
+    }
+
+    function signup(userCredentials) {
+      var req = {
+        method: 'POST',
+        url: 'http://localhost:3000/auth/signup',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: userCredentials
+      };
+
+      return $http(req)
+        .success(function(result){
+          return result;
+        })
+        .error(function(error){
+          console.error(error);
+          throw error;
+        });
+    }
+    
+    function signin(userCredentials) {
+      var req = {
+        method: 'POST',
+        url: 'http://localhost:3000/auth/login',
+        headers: {
+          'Content-Type': 'application/json',          
+        },
+        data: userCredentials
+      };
+      
+      return $http(req)
+        .success(function(result){
+          return result;
+        })
+        .error(function(error){
+          console.error(error);
+          throw error;
+        });    
     }
     
     // NOTE: memento ID will be supplied from getMementos call in list view

@@ -1,0 +1,27 @@
+<ion-view view-title="Sign In">
+  <ion-content>
+    
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" ng-model="vm.credentials.email" placeholder="email">
+      </label>
+
+      <label class="item item-input">
+        <input type="password" ng-model="vm.credentials.password" placeholder="password">
+      </label>
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-positive" on-tap="vm.signin(vm.credentials)">
+        Sign In
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="item item-text-wrap">        
+        <a href="#/signup" class="button icon-right ion-chevron-right button-clear button-dark">Don't have an account? Signup</a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
