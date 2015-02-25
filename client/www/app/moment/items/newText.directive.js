@@ -21,7 +21,7 @@
           //////////////////////////////////////////
 
           function saveText(text) {
-            scope.insertIntoMoment('text', text);
+            scope.insertIntoMoment('text/plain', text);
             element.val('');            
             scope.done();
           }

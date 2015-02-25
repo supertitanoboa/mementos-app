@@ -19,21 +19,20 @@
 
     function saveMoment(currentMoment) {
       // TODO: Show loading screen when the moment is saving;
-      // savingInProgress();      
+      // savingInProgress();
 
-      return dataservice.saveMoment(currentMoment)
-        .then(function(momentID) {
-          
-          console.log('Moment ' + momentID + ' has been saved.');
-          CurrentMoment.set({momentID: momentID});
+      dataservice.saveMoment(currentMoment)
+        .then(function(res) {
+          console.log('Moment ' + res.data.momentID + ' has been saved');
+          CurrentMoment.set({momentID: res.data.momentID});
           $state.go('mementos');
-          
         })
         .catch(function(err) {
           // TODO: Connection errors, DB errors.
           // savingError(err);
           console.error('There was an error saving moment:', err);
         });
+      
     }
 
     function EmptyMoment() {

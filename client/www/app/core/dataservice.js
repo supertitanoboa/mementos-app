@@ -5,11 +5,10 @@
     .module('app.core')
     .factory('dataservice', dataservice);
   
-  /*TODO: $http, $q and other dependencies will be needed when connecting to server*/
   /*FIXME: makesure ngInject is working during minification*/
   
   /* @ngInject */ 
-  function dataservice($q, $http) {
+  function dataservice($q, $http, upload) {
     
 
     // MOCKED DATA
@@ -41,6 +40,15 @@
     
     // NOTE: server will only return mementos associated with user
     function getMementos() {
+      // FIXME: url should point to mementos.io/api/1/mementos.  $http is promisified
+      /*return $http.get('http://localhost:3000/api/1/mementos').
+        success(function(data, status, headers, config) {
+          console.log('Successful getting mementos');
+        }).
+        error(function(data, status, headers, config) {
+          console.log('There was an error getting mementos');
+        });*/
+
       return $q(function(resolve, reject) {
         resolve(mementos);
       });
@@ -49,7 +57,7 @@
     function signup(userCredentials) {
       var req = {
         method: 'POST',
-        url: 'http://localhost:3000/auth/signup',
+        url: 'http://mementos.ngrok.com/auth/signup',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -69,7 +77,7 @@
     function signin(userCredentials) {
       var req = {
         method: 'POST',
-        url: 'http://localhost:3000/auth/login',
+        url: 'http://mementos.ngrok.com/auth/login',
         headers: {
           'Content-Type': 'application/json',          
         },
@@ -102,15 +110,87 @@
       });
     }
     
-    // NOTE: moment is saved to moments table first, then added to memento
-    function saveMoment(obj) {
-      obj.ID = momentsSize() + 1;
+    // uploads moment content to S3, then saves moment to database
+    function saveMoment(moment) {
+      return uploadItems(moment.content)
+        .then(function(momentContent) {
+          // S3 urls added to moment content
+          moment.content = momentContent
+
+          return $http.post('http://mementos.ngrok.com/api/1/moments', moment)
+            .success(function(momentID, status, headers, config) {
+              console.log('Successful saving moment');
+              return momentID;
+            })
+            .error(function(data, status, headers, config) {
+              console.log('There was an error saving moment');
+            });  
+        })
+        .catch(function(err) {
+          console.log('There was an error retrieving all moment content');
+        });
+      
+      /*NOTE: dummy data code to be removed*/
+      /*obj.ID = momentsSize() + 1;
       
       moments.push(obj);
 
       return $q(function(resolve, reject) {
         resolve(obj.ID);
-      });
+      });*/
+    }
+    
+    // sends each moment item to uploadItem and notifies saveMoment when uploads are complete
+    function uploadItems (items) {
+      var unfinished = items.length;
+      var running = 0;
+      var deferred = $q.defer();
+      var momentItems = [];
+      var i;
+      
+      // NOTE: async implementation may not work 100% of time
+      for (i = 0; i < items.length; i++) {
+        (function(index) {
+          running++;
+          uploadItem(items[index])
+            .then(function(S3Data) {
+              momentItems.push({type: S3Data.config.url.split('type=')[1], url: S3Data.data.url});
+              running--;
+              unfinished--;
+
+              if(running === 0 && unfinished === 0) {
+                deferred.resolve(momentItems);
+              }
+            })
+            .catch(function(err) {
+              console.log('There was an error uploading to S3', err);
+            });
+        }(i));
+      }
+      
+      // returns moment items after upload process is complete
+      return deferred.promise;
+    }
+    
+    // gets S3 signed-url path and uploads item to S3
+    function uploadItem (item) {
+      // request to server for S3 signed_url path
+      return $http.get('http://mementos.ngrok.com/s3?s3_object_type=' + item.type)
+        .success(function(data, status, headers, config) {
+          console.log('Succesful getting S3 url');
+          
+          // utilizes upload service to upload moment item to S3
+          return upload.S3Upload(item.payload, item.type, data.signed_request)
+            .then(function(S3data) {
+              return S3data;
+            })
+            .catch(function(err) {
+              console.log('There was an error uploading moment item to S3', err);
+            });
+        })
+        .error(function(data, status, headers, config) {
+          console.log('There was an error getting S3 url');
+        });
     }
 
     // NOTE: temp until server is connected
@@ -149,6 +229,15 @@
       } else {
         mementos.received.push(mementosObj);
       }
+      
+      // FIXME: url should point to mementos.io/api/1/mementos.  $http is promisified
+      /*return $http.post('http://localhost:3000/api/1/mementos', obj).
+        success(function(data, status, headers, config) {
+          console.log('Successful saving memento');
+        }).
+        error(function(data, status, headers, config) {
+          console.log('There was an error saving memento');
+        });*/
       
       // TEMP
       ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -27,10 +27,12 @@
 
           ///////////////////////////////////////
           
-          function insertIntoMoment(type, url) {
+
+          function insertIntoMoment(type, payload) {
             scope.moment.content.push({
               type: type,
-              url: url
+              payload: payload,
+              url: null
             });
           }
 
