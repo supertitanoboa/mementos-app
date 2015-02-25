@@ -1,6 +1,8 @@
 (function() {
   
   'use strict';
-  angular.module('app.moment', ['app.moment.items']);
-
+  angular.module('app.moment', [
+    
+    'app.moment.items'
+  ]);
 })();

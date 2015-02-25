@@ -6,7 +6,7 @@
     .controller('MementoCreate', MementoCreate);
 
   /* @ngInject */
-  function MementoCreate($state, dataservice, CurrentMoment , $stateParams) {
+  function MementoCreate($state, dataservice, CurrentMoment) {
     /*jshint validthis: true */
     var vm = this;
     vm.title = 'Create Memento';
@@ -18,15 +18,21 @@
     ////////////////////////////////////////////////////////////
 
     function activate() {
-      return addMoment();
-    }
+      var currentMoment = CurrentMoment.get().momentID;
+      vm.currentMemento.moments.push(currentMoment);
 
+      // NOTE: sets moment back to an empty object
+      CurrentMoment.set({});
+    }
+    
+    // pass sessionID
     function saveMemento(currentMemento) {
       return dataservice.saveMemento(currentMemento)
         .then(function(mementoID) {
           // NOTE: response is an object when received from server
-          console.log('Memento ' + mementoID + ' has been saved.');
-          $state.go('memento', {ID: mementoID});
+          // FIXME: need to grab the mementoID properly from the server response
+          console.log('Memento ' + mementoID.data + ' has been saved.');
+          $state.go('memento', {ID: mementoID.data});
           
         })
         .catch(function(err) {
@@ -36,34 +42,15 @@
         });
     }
 
-    function addMoment() {
-      var momentID = CurrentMoment.get();
-      
-      // NOTE: adds entire moment to fit dummy data.  Will only add momentID when connected with server
-      return dataservice.getMoment(momentID.momentID)
-        .then(function(data) {
-          console.log('Successfull getting moment');
-
-          vm.currentMemento.moments.push(data);
-
-          // NOTE: sets moment back to an empty object
-          CurrentMoment.set({});
-        })
-        .catch(function(err) {
-          console.error('There was an error getting moment:', err);
-        });
-    }
-
     function EmptyMemento() {
       this.title = '';
-      this.owner = 'User1';
-      this.authors = [this.owner];
-      this.recipients = '';
+      /*this.owner = 'User1'; */
+      /*this.authors = [];*/
+      this.recipients = [];
       this.options = {
         'public'  : false,
         'releaseType' : 'default',
       };
-      this.latestReleasedIndex = 1;
       this.moments = [];
     }
   }

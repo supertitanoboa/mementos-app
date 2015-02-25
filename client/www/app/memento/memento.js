@@ -6,7 +6,7 @@
     .controller('Memento', Memento);
 
   /* @ngInject */
-  function Memento(dataservice, $stateParams) {
+  function Memento(dataservice, $stateParams, download) {
     /*jshint validthis: true */
     var vm = this;
     vm.memento = {};
@@ -18,20 +18,23 @@
     ////////////////////////////////////////////////////////////
 
     function activate() {
-      return getMemento(vm.mementoID).then(function() {
-        console.log('Activated memento view');
-      });
-    }
-
-    function getMemento(ID) {
-      return dataservice.getMemento(ID)
+      return getMemento(vm.mementoID)
         .then(function(data) {
-          console.log('Successfull getting memento');
-
-          vm.memento = data;
+          console.log('Successful activating memento')
         })
         .catch(function(err) {
-          console.error('There was an error getting memento:', err);
+          console.error('There was an error activating memento', err)
+        });
+    }
+    
+    function getMemento(ID) {
+      return dataservice.getMemento(ID)
+        .then(function(memento) {
+          console.log('Successful getting memento');
+          vm.memento = memento.data;
+        })
+        .catch(function(err) {
+          console.error('There was an error getting memento', err);
         });
     }
     

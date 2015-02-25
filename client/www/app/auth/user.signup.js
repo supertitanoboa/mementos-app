@@ -4,7 +4,7 @@
     .controller('UserSignup', UserSignup);
 
     /* @ngInject */
-    function UserSignup(dataservice, $state) {
+    function UserSignup(dataservice, $state, CurrentUser) {
       vm = this;
       vm.credentials = {};
       vm.repeatPassword = '';
@@ -13,10 +13,9 @@
       //////////////////////////////////////
 
       function signup(credentials) {
-        console.log('here out!', credentials);
         return dataservice.signup(credentials)
-          .then(function(result) {
-            console.log('here!')
+          .then(function(res) {
+            CurrentUser.set({sessionID: res.data});
             $state.go('moment');
           })
           .catch(function(err) {
