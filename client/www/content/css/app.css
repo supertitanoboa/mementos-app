@@ -340,6 +340,7 @@ button.login {
 .captureButtons {
   border: none;
   background-color: transparent;
+  padding-top: 5vh;
 }
 
 .new-image-button {
@@ -357,8 +358,7 @@ button.login {
   margin: 0 auto;
   background: #FF8466 !important;
   color: whitesmoke !important;
-  width: 50vw !important;
-  margin-top: 5vh !important;
+  width: 88vw !important;
   border: none;
   border-radius: 5px;
 }
@@ -372,13 +372,16 @@ button.login {
 }
 
 .date-time {
-  border: none;
-  border-radius: 5px;
-  margin-top: 2vh;
-  margin-left: 2vw;
+  color: #000 !important;
   display: block;
-  color: #fafafa;
-  background-color: #B06966;
+  border-radius: 4px;
+  width: 65vw;
+  background-color: #fff;
+  border-width: 0.5px;
+  text-align: center;
+  font-size: 18px;
+  margin: 0 auto;
+  border-color: grey !important;
 }
 
 .moment-text {
@@ -428,12 +431,17 @@ button.login {
 
 .moment-title-h2 {
   font-size: 23px;
-  font-weight: bold;
   text-align: center;
+  font-family: sans-serif;
+  color: #3E505F;
+  padding: 10px 0px 5px 0px;
+  margin-top: -10px !important;
 }
 
 .moment-release-date {
-  margin-left: 25px;
+  font-family: robotoThin;
+  font-size: 15px;
+  text-align: center;
 }
 
 .create-memento {
@@ -484,6 +492,7 @@ button.login {
   font-family: existence;
   font-size: 26px;
   border-top: .5px solid whitesmoke;
+  margin-bottom: 30px;
 }
 
 .moment-in-memento {
@@ -548,6 +557,62 @@ button.login {
 .remove-person {
   margin-right: 9px;
 }
+
+.release-date {
+  font-size: 26px;
+  text-align: center;
+  margin-top: 5vh;
+  font-family: existence;
+}
+
+.rdate {
+  margin-bottom: 4vh;
+}
+
+.rtime {
+  margin-top: -10px;
+}
+
+.moment-top {
+  margin-bottom: 0px;
+}
+
+.moment-textarea {
+  margin: 0px 0px 10px 0px;
+}
+
+.save-button {
+  float: right;
+  margin-right: 10px;
+  color: #3B6979 !important;
+}
+
+.cancel-button {
+  margin-left: 10px;
+  color: #B06966 !important;
+}
+
+.memento-text {
+  font-family: robotoLight;
+}
+
+.memento-hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.moment-in-memento:nth-child(2) hr {
+  display: none;
+}
+
+.moment-in-memento:nth-child(2) .moment-title-h2 {
+  margin-top: -10px;
+}
+
+
+
 
 
 

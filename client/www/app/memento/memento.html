@@ -14,8 +14,9 @@
   <h1 class="memento-title-h1">{{vm.memento.title}}</h1>
     
     <div ng-repeat="moment in vm.memento.moments | orderBy: vm.normalizeDate" class="moment-in-memento">
+      <hr class="memento-hr">
       <h2 class="moment-title-h2">{{moment.title}}</h2>
-      <span class="moment-release-date">Release Date: {{moment.releaseDate | date: 'medium'}}</span>
+      <div class="moment-release-date">Release Date: {{moment.releaseDate | date: 'MMM d, y h:mm a'}}</div>
       
       <div ng-repeat="item in moment.content">
         

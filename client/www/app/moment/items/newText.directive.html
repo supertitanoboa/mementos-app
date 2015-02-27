@@ -5,11 +5,9 @@
   </div> -->
   
   <div class="item text-area moment-text" style="display: block">
-      <textarea type="text" ng-model="text" placeholder="Describe this moment..."></textarea>
-    <!-- <div class="item action" style="display: block"> -->
-      <button class="save button button-clear button-balanced ion-checkmark-round" on-tap="saveText(text)"></button>
-      <button class="button button-clear ion-close-round button-assertive" on-tap="cancel()"></button>
-    <!-- </div> -->
+    <textarea class="moment-textarea memento-text" type="text" ng-model="text" placeholder="Describe this moment..."></textarea>
+    <button class="button button-clear button-assertive cancel-button" on-tap="cancel()">Cancel</button>
+    <button class="save button button-clear button-balanced save-button" on-tap="saveText(text)">Save</button>
   </div>
 
   

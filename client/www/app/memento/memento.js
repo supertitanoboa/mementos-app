@@ -44,6 +44,20 @@
     }
 
     function goToMomentCreate () {
+      
+      var plus = document.getElementsByClassName('plusSign')[0];
+      
+      // fades in and antispins plus sign
+      setTimeout(function() {
+        plus.className = plus.className.split(' fadeout')[0] + ' fadein antispin';
+      }, 100);
+
+      // removes antispin class
+      setTimeout(function() {
+        var plus = document.getElementsByClassName('plusSign')[0];
+        plus.className = plus.className.split(' antispin')[0];
+      }, 400);
+
       $state.go('moment');
     }
     

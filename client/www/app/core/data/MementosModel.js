@@ -8,12 +8,16 @@
     // Mementos have 2 main properties.
     // created -> [{mementoID: } , .. , ]
     // received -> [, .. , ..]
-    var mementos = {};
+    var mementos = {
+      created: [],
+      received: []
+    };
     
     var mementosModel = {
       add: add,
       get: get,
       set: set,
+      reset: reset,
       getAll: getAll,
       findByViewer: findByViewer,
       updateOrInsert: updateOrInsert,
@@ -28,7 +32,14 @@
       mementos = angular.copy(updatedMementos);
     }
 
-    function add(memento, viewer) {      
+    function reset() {
+      mementos = {
+        created: [],
+        received: []
+      };
+    }
+
+    function add(memento, viewer) {
       mementos[viewer].push(angular.copy(memento));
     }
 

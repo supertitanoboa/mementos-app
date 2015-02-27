@@ -7,7 +7,7 @@
     
     <!-- Include a editable input box if editable -->
 
-    <div class="list">
+    <div class="list moment-top">
       <label class="item item-input moment-title">
         <input type="text" ng-model="vm.currentMoment.title" placeholder="Name Your Moment"/>
       </label>
@@ -26,10 +26,16 @@
     <!-- // Allow users to create a new item if editable -->
     <new-item moment="vm.currentMoment"></new-item>
 
-    <button class="button date-time" on-tap="vm.showDatePicker()">Release Date</button>
-    {{vm.date | date : 'longDate'}}
-    <button ng-show="vm.date" class="button date-time" on-tap="vm.showTimePicker(vm.date)">Release Time</button>
-    {{vm.time | date : 'shortTime'}}
+    <h2 class="release-date">Release Date</h2>
+    
+    <button class="button button-clear date-time rdate" on-tap="vm.showDatePicker()">
+      {{vm.date ? (vm.date | date : 'longDate') : 'Date'}}
+    </button>
+    
+    <button class="button button-clear date-time rtime" on-tap="vm.showTimePicker(vm.date)">
+      {{vm.time ? (vm.time | date : 'shortTime') : 'Time'}}
+    </button>
+    
 
     <button ng-disabled="!vm.currentMoment.title || !vm.currentMoment.content[0] || !vm.date || !vm.time" class="button button-outline button-large button-block button-positive m-save" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
 
