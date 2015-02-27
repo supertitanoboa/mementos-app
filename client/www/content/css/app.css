@@ -157,6 +157,12 @@ button.login {
   background-color: #3E505F !important;
 }
 
+/* transition background color */
+[nav-view-transition="ios"][nav-view-direction="forward"], 
+[nav-view-transition="ios"][nav-view-direction="back"] {
+  background-color: transparent;
+}
+
 .bar.bar-stable .title {
   color: #fafafa;
   font-family: existence;
@@ -541,5 +547,6 @@ button.login {
 .remove-person {
   margin-right: 9px;
 }
+
 
 

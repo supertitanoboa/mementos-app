@@ -109,9 +109,7 @@
     function hideSaveProgress() {
       return $ionicLoading.hide();
     }
-    
 
   }
 
 })();
-
