@@ -6,7 +6,7 @@
     .controller('MementoCreate', MementoCreate);
 
   /* @ngInject */
-  function MementoCreate($state, DataHandler, $ionicHistory) {
+  function MementoCreate($state, DataHandler, $ionicHistory, Events) {
     /*jshint validthis: true */
     var vm = this;
     vm.title = 'Create Memento';
@@ -19,7 +19,6 @@
     vm.removeRecipient    = removeRecipient;
     vm.recipient          = '';
     vm.goBack             = goBack;
-
 
     ////////////////////////////////////////////////////////////
     
@@ -57,8 +56,13 @@
     function routeToMemento() {
       DataHandler.moment.set({});
       var memento = DataHandler.memento.get();
+
       DataHandler.mementos.add(memento, 'created');      
-      console.log('New Moment Succesfully added to ' + memento.ID);
+      
+      console.log('Memento with ID: ' + memento.ID + ' added to mementos list');
+
+      Events.trigger('newMemento');
+      vm.currentMemento = new DataHandler.memento.constructor();      
       $state.go('memento', { ID: memento.ID });
     }
 

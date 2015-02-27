@@ -4,7 +4,6 @@
     .controller('UserSignup', UserSignup);
 
     /* @ngInject */
-
     function UserSignup(Notifications, DataHandler, dataservice, $state, Events, $ionicHistory, Alerts) {
       vm = this;
       vm.credentials = {};
@@ -52,3 +51,4 @@
       }
     }  
 })();
+

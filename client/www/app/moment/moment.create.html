@@ -1,6 +1,6 @@
 <ion-view title="" class="test">
   <ion-nav-buttons side="primary">
-    <button on-tap="vm.goBack()" class="button button-icon icon ion-ios7-close-empty"></button>
+    <button on-tap="vm.goBack()" class="button button-icon icon ion-ios7-close-empty cancel"></button>
   </ion-nav-buttons>
 
   <ion-content class="moment">
@@ -31,7 +31,7 @@
     <button ng-show="vm.date" class="button date-time" on-tap="vm.showTimePicker(vm.date)">Release Time</button>
     {{vm.time | date : 'shortTime'}}
 
-    <button ng-disabled="!vm.currentMoment.title || !vm.currentMoment.content[0] || !vm.date || !vm.time" class="button button-outline button-large button-block button-positive moment-save cadet" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
+    <button ng-disabled="!vm.currentMoment.title || !vm.currentMoment.content[0] || !vm.date || !vm.time" class="button button-outline button-large button-block button-positive m-save" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
 
   </ion-content>
 </ion-view>

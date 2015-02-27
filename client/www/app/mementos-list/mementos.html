@@ -1,15 +1,17 @@
 <!-- FIXME: need different behavior based on which mode (moment created or not) -->
-<ion-view view-title="{{vm.title}}">
+<ion-view view-title="Created">
 
   <ion-nav-buttons side="secondary">
-    <button ng-hide="" on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled"></button>
+    <button ng-hide="" on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled circleplus"></button>
   </ion-nav-buttons>
 
-  <ion-content>
-    <ion-item href="#/mementocreate"> Create Memento </ion-item>
-
-    <div class="item item-divider"> Created </div>
+  <ion-content class="mementos-content">
     
+    <!-- <div class="item item-divider created-mementos">Created</div> -->
+
+    <ion-item class="mementos-title-bg" href="#/mementocreate">
+      Create a Memento
+    </ion-item>
 
       <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-right" on-tap="vm.addMoment({{ memento }})">
         {{memento.title}}
@@ -28,3 +30,4 @@
   
   </ion-content>
 </ion-view>
+

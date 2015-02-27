@@ -1,18 +1,20 @@
-<ion-view view-title="{{vm.memento.title}}">
+<ion-view view-title="">
   
   <ion-nav-buttons side="primary">
     <!-- NOTE: it should also have the notification circle for new moments -->
-    <button on-tap="vm.goToMementos()" class="button button-icon icon">Logo</button>
+    <button on-tap="vm.goToMementos()" class="button button-icon icon m-logo">M</button>
   </ion-nav-buttons>
   
   <ion-nav-buttons side="secondary">
-    <button on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled"></button>
+    <button on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled circleplus"></button>
   </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content class="memento-wrap">
+  <h1 class="memento-title-h1">{{vm.memento.title}}</h1>
 
-    <div ng-repeat="moment in vm.memento.moments | orderBy: 'releaseDate' ">
-      {{moment.title}}
+    <div ng-repeat="moment in vm.memento.moments | orderBy: 'releaseDate' " class="moment-in-memento">
+      <h2 class="moment-title-h2">{{moment.title}}</h2>
+      <span class="moment-release-date">Release Date: {{moment.releaseDate | date: 'medium'}}</span>
       
       <div ng-repeat="item in moment.content">
         
@@ -24,3 +26,4 @@
   
   </ion-content>
 </ion-view>
+
