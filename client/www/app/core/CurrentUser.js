@@ -1,3 +1,4 @@
+/*NOTE: cosider putting all 'Current' into one service*/
 (function() {
 
   angular

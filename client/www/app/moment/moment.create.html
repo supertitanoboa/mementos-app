@@ -1,11 +1,15 @@
-<ion-view view-title="Capture This Current Moment">
-  <ion-content class="padding moment">
+<ion-view title="" class="test">
+  <ion-nav-buttons side="primary">
+    <button on-tap="vm.goBack()" class="button button-icon icon ion-ios7-close-empty"></button>
+  </ion-nav-buttons>
+
+  <ion-content class="moment">
     
     <!-- Include a editable input box if editable -->
 
-    <div class="list list-inset">
+    <div class="list">
       <label class="item item-input moment-title">
-        <input type="text" ng-model="vm.currentMoment.title" placeholder="Moment Title"/>
+        <input type="text" ng-model="vm.currentMoment.title" placeholder="Name Your Moment"/>
       </label>
     </div>
 
@@ -20,10 +24,14 @@
     </div>
  
     <!-- // Allow users to create a new item if editable -->
-    <new-item moment="vm.currentMoment"></new-item>    
+    <new-item moment="vm.currentMoment"></new-item>
 
+    <button class="button date-time" on-tap="vm.showDatePicker()">Release Date</button>
+    {{vm.date | date : 'longDate'}}
+    <button ng-show="vm.date" class="button date-time" on-tap="vm.showTimePicker(vm.date)">Release Time</button>
+    {{vm.time | date : 'shortTime'}}
 
-    <button class="button button-outline button-block button-positive moment-save" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
+    <button ng-disabled="!vm.currentMoment.title || !vm.currentMoment.content[0] || !vm.date || !vm.time" class="button button-outline button-large button-block button-positive moment-save cadet" on-tap="vm.saveMoment(vm.currentMoment)">Save</button>
 
   </ion-content>
 </ion-view>

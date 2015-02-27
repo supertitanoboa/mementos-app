@@ -1,0 +1,19 @@
+<ion-view title="" class="bgView captureMoment">
+  <ion-nav-buttons side="primary">
+    <!-- NOTE: it should also have the notification circle for new moments -->
+    <button on-tap="vm.goToMementos()" class="button button-icon icon">Logo</button>
+  </ion-nav-buttons>
+  
+  <ion-nav-buttons side="secondary">
+    <button on-tap="vm.logoutUser()" class="button button-icon icon">Logout</button>
+  </ion-nav-buttons>
+  
+  <ion-content>
+    <div>
+      <h1 class="capture">Capture this Moment</h1>
+    </div>
+    <div class="plusSign fadein" on-tap="vm.createMoment()">
+    </div>
+  </ion-content>
+
+</ion-view>

@@ -1,16 +1,16 @@
-<div class="card list new-text-container">
+<div class="list new-text-container">
   
-  <div class="item item-text-wrap header-area">
+ <!--  <div class="item item-text-wrap header-area">
     <h2>Write something memorable</h2>
-  </div>
+  </div> -->
   
-  <div class="item text-area" style="display: block">
-      <textarea type="text" ng-model="text" placeholder="Describe this awesome moment..."></textarea>
+  <div class="item text-area moment-text" style="display: block">
+      <textarea type="text" ng-model="text" placeholder="Describe this moment..."></textarea>
+    <!-- <div class="item action" style="display: block"> -->
+      <button class="save button button-clear button-balanced ion-checkmark-round" on-tap="saveText(text)"></button>
+      <button class="cancel button button-clear ion-close-round button-assertive" on-tap="cancel()"></button>
+    <!-- </div> -->
   </div>
 
-  <div class="item action" style="display: block">
-    <button class="save button button-clear button-balanced ion-checkmark-round" on-tap="saveText(text)"></button>
-    <button class="cancel button button-clear ion-close-round button-assertive" on-tap="cancel()"></button>
-  </div>
   
 </div>

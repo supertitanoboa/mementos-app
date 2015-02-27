@@ -27,7 +27,7 @@
 
     function activate() {
       if (!socket) {
-        socket = io('https://mementos.ngrok.com');
+        socket = io('https://mementosio.herokuapp.com');
 
         socket.on('connect', function() {
           console.log('Socket Connection Established');              

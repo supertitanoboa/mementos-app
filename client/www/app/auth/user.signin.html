@@ -1,4 +1,8 @@
-<ion-view view-title="Sign In">
+<ion-view view-title="Login" class="bgView">
+  <ion-nav-buttons side="primary">
+    <button on-tap="vm.goBack()" class="button button-icon icon">Cancel</button>
+  </ion-nav-buttons>
+  
   <ion-content>
     
     <div class="list">
@@ -10,17 +14,12 @@
         <input type="password" ng-model="vm.credentials.password" placeholder="password">
       </label>
     </div>
-
+    
+    <!-- FIXME: need to alert for previously created users or incorrect entry -->
     <div class="padding">
-      <button class="button button-block button-positive" on-tap="vm.signin(vm.credentials)">
+      <button class="button button-block cadet" on-tap="vm.signin(vm.credentials)">
         Sign In
       </button>
-    </div>
-
-    <div class="card">
-      <div class="item item-text-wrap">        
-        <a href="#/signup" class="button icon-right ion-chevron-right button-clear button-dark">Don't have an account? Signup</a>
-      </div>
     </div>
 
   </ion-content>
