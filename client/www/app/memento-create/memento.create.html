@@ -11,18 +11,21 @@
       </label>
     </div>
     
-    <div class="list">
+    <div class="list add-recipient">
       <label class="item item-input">
-        <input type="text" placeholder="Recipient Email" ng-model="vm.recipient">
+        <input type="email" placeholder="Add Recipient Email" ng-model="vm.recipient" class="recipient-email">
+        <button ng-disabled="!vm.recipient" on-tap="vm.addRecipient(vm.recipient)" class="button icon-left ion-plus button-clear button-dark add-recipient-button"></button>
       </label>
     </div>
 
-    <button ng-disabled="!vm.recipient" on-tap="vm.addRecipient(vm.recipient)">Add</button>
-
-    <span ng-repeat="recipient in vm.currentMemento.recipients">
-      {{recipient}} 
-      <span on-tap="vm.removeRecipient(recipient)">X </span>
-    </span>
+    <!-- <a class="button icon-left ion-chevron-left button-clear button-dark">Back</a> -->
+    <div class="list">
+      <a class="recipient-list-item item item-icon-left item-icon-right" ng-repeat="recipient in vm.currentMemento.recipients" href="#">
+        <i class="icon ion-ios7-person"></i>
+        <h4 class="recipient-added">{{recipient}}</h4>
+        <i on-tap="vm.removeRecipient(recipient)" class="icon ion-ios7-close-empty remove-person"></i>
+      </a>
+    </div>
     
     <!-- FIXME: both link and button need to be disabled until user has inputed validated info -->
     <button ng-disabled="!vm.currentMemento.title || !vm.currentMemento.recipients[0]" on-tap="vm.saveMemento(vm.currentMemento)" class="button button-block button-positive m-save">
@@ -31,3 +34,4 @@
 
   </ion-content>
 </ion-view>
+

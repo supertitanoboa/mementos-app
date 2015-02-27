@@ -93,6 +93,7 @@
 
       $state.go('moment')
     }
+
     
     function showLoadProgress() {
       return $ionicLoading.show({

@@ -4,3 +4,4 @@
   angular.module('app.core', ['app.media', 'ngCordova', 'app.tools', 'app.data']);
 
 })();
+

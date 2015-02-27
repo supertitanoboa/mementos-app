@@ -82,16 +82,15 @@ button.cadet {
   z-index: 2;
 }
 
+/* Overwrite the default button activated behavior of turning the button grey on click */
 button.cadet.activated {
   background-color: #FF8466 !important;
 }
 
-/* Overwrite the default button activated behavior of turning the button grey on click */
 
 /* Home page */
 
 .home {
-  /*background-color: ivory;*/
   background: url(../assets/memories-fade.jpg) center no-repeat;
   background-size: cover;
 }
@@ -108,9 +107,6 @@ button.cadet.activated {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 40vh;
-  /*opacity: 0.5;*/
-  /*background-color: white;*/
 }
 
 .mementos-title,
@@ -123,9 +119,7 @@ button.cadet.activated {
   font-family: ReklameScript;
   font-size: 74px;
   font-weight: bold;
-  /*background-color: rgba(0,0,0, .1);*/
   margin: 90px 10px 0 !important;
-  /*border-radius: 2px;*/
 }
 
 .slogan {
@@ -139,11 +133,11 @@ button.login {
   position: absolute;
   width: 39%;
   font-size: 17px;
-  /*background-color: rgba(250,250,242, .9);*/
   background-color: rgba(62,80,95, .85);
   border: none;
   border-radius: 4px;
   color: #fafafa;
+  margin-top: 21vh;
 }
 
 button.signup {
@@ -163,14 +157,6 @@ button.login {
   background-color: #3E505F !important;
 }
 
-[nav-view-transition="ios"][nav-view-direction="forward"], [nav-view-transition="ios"][nav-view-direction="back"] {
-  /*background: -webkit-linear-gradient(#4A6CAA, ivory);
-  background: -o-linear-gradient(#4A6CAA, ivory);
-  background: -moz-linear-gradient(#4A6CAA, ivory);
-  background: linear-gradient(#4A6CAA, ivory);*/
-  background-color: #fafafa;
-}
-
 .bar.bar-stable .title {
   color: #fafafa;
   font-family: existence;
@@ -182,7 +168,6 @@ button.login {
 }
 
 /* Capture this moment view */
-
 .capture {
   text-align: center;
   margin-top: 5vh !important;
@@ -195,38 +180,18 @@ button.login {
 }
 
 /* Make room for the bigger header */
-
 .toproom {
   margin-top: 6.3vh;
 }
 
 .plusSign {
-  /*background: url("../assets/1425382348_circle_add_plus-128.png") no-repeat center;
-  height: 35vh;
-  background-size: 40% !important;*/
-  /*text-align: center;
-  margin-top: 30px;
-  font-size: 90px;*/
   margin: 0 auto;
   display: block;
   margin-top: 5vh;
 }
 
 .captureMoment {
-  /*background: -webkit-linear-gradient(#4A6CAA, #FF794F);
-  background: -o-linear-gradient(#4A6CAA, #FF794F);
-  background: -moz-linear-gradient(#4A6CAA, #FF794F);
-  background: linear-gradient(#4A6CAA, #FF794F);*/
-  /*background: linear-gradient(#3E505F, whitesmoke);*/
-  /*background-color: #fff9f7;*/
   background: url(../assets/circles2.png) fixed center no-repeat;
-}
-
-.createMoment {
-  background: -webkit-linear-gradient(whitesmoke, #4A6CAA);
-  background: -o-linear-gradient(whitesmoke, #4A6CAA);
-  background: -moz-linear-gradient(whitesmoke, #4A6CAA);
-  background: linear-gradient(whitesmoke, #4A6CAA);
 }
 
 .spin {
@@ -387,7 +352,6 @@ button.login {
   color: whitesmoke !important;
   width: 50vw !important;
   margin-top: 5vh !important;
-  opacity: 1 !important;
   border: none;
   border-radius: 5px;
 }
@@ -458,7 +422,7 @@ button.login {
 .moment-title-h2 {
   font-size: 23px;
   font-weight: bold;
-  margin-left: 25px;
+  text-align: center;
 }
 
 .moment-release-date {
@@ -489,37 +453,93 @@ button.login {
 
 .created-mementos {
   font-size: 26px;
-  text-align: center;
   padding: 16px;
-  background-color: #3E505F;
-  border-top: none;
+  background-color: #3B6979;
+  border-top: 1.5px solid whitesmoke;
   color: whitesmoke;
   font-family: existence;
 }
 
 .received-mementos {
-  padding-top: 8px;
-  padding-bottom: 8px;
   min-height: 30px;
-  background-color: #3E505F;
-  color: #FF8466;
-  font-family: robotoLight;
+  background-color: #3B6979;
+  color: whitesmoke;
+  font-family: existence;
   padding: 16px;
   font-size: 26px;
-  text-align: center;
   border: 0;
 }
 
 .memento-title-h1 {
-  text-align: center; 
-  background-color: #3E505F;
+  background-color: #3B6979;
   color: #fafafa;
-  padding: 0px 10px 15px 10px;
+  padding: 10px 20px; 
   font-family: existence;
   font-size: 26px;
+  border-top: .5px solid whitesmoke;
 }
 
 .moment-in-memento {
   background-color: #FFF;
 }
+
+.mementos-content {
+  background-color: #3E505F;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  margin: 0px auto;
+}
+
+.mementos-arrow {
+  font-size: 20px;
+}
+
+.memento-icon-created {
+  -ms-transform: rotate(-7deg);
+  -webkit-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+  color: #B06966;
+  font-size: 35px !important;
+}
+
+.memento-icon-received {
+  -ms-transform: rotate(63deg);
+  -webkit-transform: rotate(63deg);
+  transform: rotate(63deg);
+  color: #B06966;
+  font-size: 35px !important;
+}
+
+.left-memento-icon {
+  left: 10 !important;
+  font-family: robotoLight;
+  font-size: 17px;
+  padding: 20px 10px 20px 50px;
+}
+
+.mementos-title-bg a {
+  font-size: 17px
+}
+
+.add-recipient {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.add-recipient-button {
+  color: #3B6979;
+}
+
+.recipient-list-item {
+  display: block;
+}
+
+.remove-person {
+  margin-right: 9px;
+}
+
 
