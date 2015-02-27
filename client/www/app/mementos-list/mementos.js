@@ -6,7 +6,7 @@
     .controller('Mementos', Mementos);
 
   /* @ngInject */
-  function Mementos(dataservice, CurrentMoment, $stateParams) {
+  function Mementos(dataservice, CurrentMoment) {
     /*jshint validthis: true */
     var vm = this;
     vm.mementos = {};
@@ -25,13 +25,9 @@
 
     function getMementos() {
       return dataservice.getMementos()
-        .then(function(resp) {
+        .then(function(mementos) {
           console.log('Successful getting mementos');
-          
-          /*FIXME: when connected to server, will return an object with data property
-          vm.mementos = resp.data;*/
-          
-          vm.mementos = resp;
+          vm.mementos = mementos.data;
         })
         .catch(function(err) {
           console.error('There was an error getting mementos:', err);
@@ -41,16 +37,17 @@
     function addMoment(mementoID) {
       var momentID = CurrentMoment.get();
 
-      return dataservice.addMoment(mementoID, momentID.momentID)
-        .then(function(momentID) {
-          console.log('Moment ' + momentID + ' has been added.');
+      // update memento in database
+      return dataservice.updateMemento(mementoID, momentID)
+        .then(function(data) {
+          console.log('Memento ' + mementoID + ' has been updated');
           
           // NOTE: sets moment back to an empty object
           CurrentMoment.set({});
         })
         .catch(function(err) {
-          console.error('There was an error adding the moment:', err);
-        });
+          console.error('There was an error updating the memento:', err);
+        })
     }
 
   }

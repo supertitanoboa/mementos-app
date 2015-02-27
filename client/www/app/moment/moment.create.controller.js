@@ -13,18 +13,16 @@
     vm.saveMoment = saveMoment;
     vm.currentMoment = new EmptyMoment();
       
-
     //////////////////////////////////////////////////
-  
 
     function saveMoment(currentMoment) {
       // TODO: Show loading screen when the moment is saving;
       // savingInProgress();
 
       dataservice.saveMoment(currentMoment)
-        .then(function(res) {
-          console.log('Moment ' + res.data.momentID + ' has been saved');
-          CurrentMoment.set({momentID: res.data.momentID});
+        .then(function(momentID) {
+          console.log('Moment ' + momentID.data + ' has been saved');
+          CurrentMoment.set({momentID: momentID.data});
           $state.go('mementos');
         })
         .catch(function(err) {
@@ -32,7 +30,6 @@
           // savingError(err);
           console.error('There was an error saving moment:', err);
         });
-      
     }
 
     function EmptyMoment() {
