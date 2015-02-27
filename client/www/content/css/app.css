@@ -71,10 +71,6 @@ h6 {
   margin: 0 auto;
 }
 
-.moment-title input[type='text'] {
-  text-align: center;
-}
-
 button.cadet {
   color: #fafafa;
   background-color: #FF8466;
@@ -86,6 +82,10 @@ button.cadet {
 /* Overwrite the default button activated behavior of turning the button grey on click */
 button.cadet.activated {
   background-color: #FF8466 !important;
+}
+
+button.activated {
+  background-color: inherit !important;
 }
 
 
@@ -340,7 +340,7 @@ button.login {
 .captureButtons {
   border: none;
   background-color: transparent;
-  padding-top: 5vh;
+  margin-top: 20px !important;
 }
 
 .new-image-button {
@@ -365,10 +365,10 @@ button.login {
 
 .moment-title input[type='text'] {
   text-align: center;
-  font-weight: bold;
   font-size: 18px;
-  padding-top: 12px;
-  height: 40px
+  padding-top: 8px;
+  height: 40px;
+  font-family: robotoLight;
 }
 
 .date-time {
@@ -435,7 +435,7 @@ button.login {
   font-family: sans-serif;
   color: #3E505F;
   padding: 10px 0px 5px 0px;
-  margin-top: -10px !important;
+  margin-top: 0px !important;
 }
 
 .moment-release-date {
@@ -566,19 +566,16 @@ button.login {
 }
 
 .rdate {
-  margin-bottom: 4vh;
+  margin-bottom: 20px;
 }
 
 .rtime {
   margin-top: -10px;
 }
 
-.moment-top {
-  margin-bottom: 0px;
-}
-
 .moment-textarea {
   margin: 0px 0px 10px 0px;
+  padding-left: 17px;
 }
 
 .save-button {
@@ -590,6 +587,10 @@ button.login {
 .cancel-button {
   margin-left: 10px;
   color: #B06966 !important;
+}
+
+.left-memento-icon:active {
+  opacity: 0.9;
 }
 
 .memento-text {
@@ -611,8 +612,41 @@ button.login {
   margin-top: -10px;
 }
 
+.noshow {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+}
 
+.moment-title input[type="text"]::-webkit-input-placeholder, 
+.memento-title-label input[type="text"]::-webkit-input-placeholder {
+  -webkit-transition: opacity 0.3s linear; color: gray;
+}
+.moment-title input[type="text"]:focus::-webkit-input-placeholder,
+.memento-title-label input[type="text"]:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
 
+.moment-top {
+  margin-bottom: 22px;
+}
 
+.moment-title {
+  margin-bottom: -23px;
+}
+
+.moment-content:nth-child(1) .memento-text {
+  margin-top: 1px;
+}
+
+.moment-content:nth-child(1) .image-item-container {
+  margin-top: 33px;
+}
+
+.moment > div > .new-items:nth-child(3) {
+  margin-top: 22px;
+}
 
 

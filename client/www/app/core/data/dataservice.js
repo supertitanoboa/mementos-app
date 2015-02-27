@@ -35,7 +35,8 @@
         }
       })
       .success(function(result){
-        console.log('Successful getting mementos');        
+        console.log('Successful getting mementos');
+        console.log('here is the result from getting all the mementos', result);
         return result.data;
       })
       .error(function(error){
