@@ -12,7 +12,7 @@
     'app.user.auth'
   ])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, Notifications) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -23,6 +23,10 @@
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      // Start to handle SOCKET.IO connections
+      Notifications.activate();
+
     });
   })
   
