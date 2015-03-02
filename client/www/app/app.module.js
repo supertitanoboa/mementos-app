@@ -13,7 +13,12 @@
     'app.user.auth'
   ])
 
-  .run(function($ionicPlatform, Notifications) {
+  .run(function($ionicPlatform, Notifications, DataHandler) {
+
+
+    // FIX: THIS IS BROKEN FOR SOME REASON
+    // IonicPlatform.ready is not firing!!!
+
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -26,7 +31,8 @@
       }
 
       // Start to handle SOCKET.IO connections
-      Notifications.activate();
+      // Notifications.activate();
+      // DataHandler.activate();
 
     });
   })
@@ -37,7 +43,7 @@
     // This will not work when testing in the browser. You will need
     // to comment this out if you'd like to test the app in Chrome.
     // Otherwise, it works great in the iOS simulator/built app.
-    /*$httpProvider.defaults.withCredentials = true;*/
+    $httpProvider.defaults.withCredentials = true;
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
   })
 

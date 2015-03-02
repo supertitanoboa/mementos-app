@@ -4,7 +4,7 @@
     .controller('UserSignin', UserSignin);
 
     /* @ngInject */
-    function UserSignin(dataservice, $state, CurrentUser, Notifications, $ionicHistory, Alerts) {
+    function UserSignin(Notifications, DataHandler, dataservice, $state, Events, $ionicHistory, Alerts) {
       vm = this;
       vm.credentials = {};      
       vm.signin = signin;
@@ -12,15 +12,20 @@
 
       /////////////////////////////////////
 
+      // FIX! Try to make these run when platform is ready!
+      Notifications.activate();
+      DataHandler.activate();
+      //
+
       function signin(credentials) {
         return dataservice.signin(credentials)
-          .then(function(res) {        
-            CurrentUser.set({
+          .then(function(res) {
+            var userInfo = {
               sessionID: res.data.sessionID, 
               userID: res.data.userID
-            });
-            
-            Notifications.emit('sendUser', { userID: res.data.userID });
+            };
+
+            Events.trigger('userLogin', userInfo);
 
             $state.go('moment');
           })

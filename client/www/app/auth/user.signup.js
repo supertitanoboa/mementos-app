@@ -4,7 +4,8 @@
     .controller('UserSignup', UserSignup);
 
     /* @ngInject */
-    function UserSignup(dataservice, $state, CurrentUser, Notifications, $ionicHistory, Alerts) {
+
+    function UserSignup(Notifications, DataHandler, dataservice, $state, Events, $ionicHistory, Alerts) {
       vm = this;
       vm.credentials = {};
       vm.repeatPassword = '';
@@ -14,6 +15,11 @@
 
       /////////////////////////////////////
 
+      // FIX! Try to make these run when platform is ready!
+      Notifications.activate();
+      DataHandler.activate();
+      //
+
       function signup(credentials) {
         if(credentials.password !== vm.repeatPassword) {
           return vm.passwordError = true;
@@ -21,16 +27,16 @@
 
         return dataservice.signup(credentials)
           .then(function(res) {            
-            CurrentUser.set({
+            var userInfo = {
               sessionID: res.data.sessionID, 
               userID: res.data.userID
-            });
-
-            Notifications.emit('sendUser', { userID: res.data.userID });
+            };
 
             // reset credentials
             vm.credentials = {};
             vm.repeatPassword = '';
+            
+            Events.trigger('userLogin', userInfo);
             
             $state.go('moment');
           })

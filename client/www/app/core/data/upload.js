@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.core')
+    .module('app.data')
     .factory('upload', upload);
   
   /* @ngInject */ 

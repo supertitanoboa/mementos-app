@@ -27,7 +27,8 @@
 
         function activate() {
           // NOTE: utilized $stateParams to access difference between moment and memento scope
-          if($stateParams.ID) {
+          // Refactor possibility: Check if vm.item.payload exists.
+          if ($stateParams.ID) {
             vm.getPayload(vm.item.url, vm.item.type)
             .then(function(payload) {
               vm.item.payload = payload;
