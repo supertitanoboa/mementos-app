@@ -1,6 +1,6 @@
 <ion-view view-title="Signup" class="bgView">
   <ion-nav-buttons side="primary">
-    <button on-tap="vm.goBack()" class="button button-icon icon">Cancel</button>
+    <button on-tap="vm.goBack()" class="button button-icon icon cancel">Cancel</button>
   </ion-nav-buttons>
 
   <ion-content>
@@ -25,8 +25,13 @@
       <span ng-show="form.email.$error.email">Invalid email address</span>
     </span>
 
+    <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid">
+      <span ng-show="form.email.$error.required">Email is required</span>
+      <span ng-show="form.email.$error.email">Invalid email address</span>
+    </span>
+
     <span style="color:red" ng-show="vm.passwordError">Your passwords didn't match. Please re-enter</span>
-    
+
     <div class="padding">
       <button ng-disabled="!vm.credentials.email || form.email.$dirty && form.email.$invalid" class="button button-block cadet" on-tap="vm.signup(vm.credentials)">
         Sign Up

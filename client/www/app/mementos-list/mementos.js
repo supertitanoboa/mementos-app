@@ -35,6 +35,12 @@
       } else {
         vm.getMementos();        
       }
+
+      Events.on('newMemento', function() {
+        vm.getMementos();
+      })
+
+
     }
 
     function getMementos() {
@@ -42,16 +48,21 @@
     }
 
     function addMoment(memento) {
+      vm.moment = DataHandler.moment.get();
 
       if (vm.moment.hasOwnProperty('ID')) {
         DataHandler.memento.set(memento);      
         return DataHandler.memento.addMoment(vm.moment)
         .then(function(data) {
           console.log('Memento has been updated');
-          
+          var updatedMemento = DataHandler.memento.get(); 
           // NOTE: sets moment back to an empty object
-          DataHandler.moment.set({});
-          vm.goToMemento(memento.ID);          
+          DataHandler.mementos.updateOrInsert(updatedMemento, 'created');
+          
+          // NOTE: reset moment back to an empty object
+          vm.moment = DataHandler.moment.set({});
+
+          vm.goToMemento(updatedMemento.ID);
         })
         .catch(function(err) {
           console.error('There was an error updating the memento:', err);
@@ -66,6 +77,20 @@
     }    
     
     function goToMomentCreate () {
+
+      var plus = document.getElementsByClassName('plusSign')[0];
+      
+      // fades in and antispins plus sign
+      setTimeout(function() {
+        plus.className = plus.className.split(' fadeout')[0] + ' fadein antispin';
+      }, 100);
+
+      // removes antispin class
+      setTimeout(function() {
+        var plus = document.getElementsByClassName('plusSign')[0];
+        plus.className = plus.className.split(' antispin')[0];
+      }, 400);
+
       $state.go('moment')
     }
     
@@ -80,3 +105,4 @@
     }
   }
 })();
+

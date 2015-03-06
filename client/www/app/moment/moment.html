@@ -1,19 +1,22 @@
-<ion-view title="" class="bgView captureMoment">
+<ion-view title="" class="bgView">
   <ion-nav-buttons side="primary">
     <!-- NOTE: it should also have the notification circle for new moments -->
-    <button on-tap="vm.goToMementos()" class="button button-icon icon">Logo</button>
+    <button on-tap="vm.goToMementos()" class="button button-icon icon m-logo">M</button>
   </ion-nav-buttons>
   
   <ion-nav-buttons side="secondary">
-    <button on-tap="vm.logoutUser()" class="button button-icon icon">Logout</button>
+    <button on-tap="vm.logoutUser()" class="button button-icon icon logout">Logout</button>
   </ion-nav-buttons>
   
-  <ion-content>
+  <ion-content class="captureMoment">
     <div>
       <h1 class="capture">Capture this Moment</h1>
     </div>
-    <div class="plusSign fadein" on-tap="vm.createMoment()">
-    </div>
+    <img ng-src="content/assets/1425382348_circle_add_plus-128.png" class="plusSign fadein" on-tap="vm.createMoment()">
+    <!-- <div class="plusSign icon fadein" on-tap="vm.createMoment()">
+    </div> -->
+    <!-- <div class="plusSign ion-ios7-plus icon fadein" on-tap="vm.createMoment()">
+    </div> -->
   </ion-content>
 
 </ion-view>

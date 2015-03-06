@@ -1,13 +1,13 @@
 <ion-view view-title="Login" class="bgView">
   <ion-nav-buttons side="primary">
-    <button on-tap="vm.goBack()" class="button button-icon icon">Cancel</button>
+    <button on-tap="vm.goBack()" class="button button-icon icon cancel">Cancel</button>
   </ion-nav-buttons>
   
   <ion-content>
     
     <div class="list">
       <label class="item item-input">
-        <input type="text" ng-model="vm.credentials.email" placeholder="email">
+        <input type="email" ng-model="vm.credentials.email" placeholder="email">
       </label>
 
       <label class="item item-input">
@@ -24,3 +24,4 @@
 
   </ion-content>
 </ion-view>
+

@@ -43,7 +43,7 @@
     // This will not work when testing in the browser. You will need
     // to comment this out if you'd like to test the app in Chrome.
     // Otherwise, it works great in the iOS simulator/built app.
-    $httpProvider.defaults.withCredentials = true;
+    /*$httpProvider.defaults.withCredentials = true;*/
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
   })
 
@@ -100,3 +100,4 @@
   });
   
 })();
+

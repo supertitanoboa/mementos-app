@@ -6,7 +6,7 @@
     .factory('logout', logout);
   
   /* @ngInject */ 
-  function logout($ionicActionSheet, $timeout, DataHandler, $state, $ionicHistory) {
+  function logout($ionicActionSheet, $timeout, $state, $ionicHistory, UserModel) {
 
     var service = {
       show: show
@@ -25,7 +25,7 @@
       
       // resets user credentials, clears app history stack, and takes user to home
       function logoutUser() {
-        DataHandler.user.set({});
+        UserModel.set({});
         $ionicHistory.clearHistory();
         $state.go('home');
       }
@@ -38,3 +38,4 @@
   }
 
 })();
+

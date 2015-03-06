@@ -24,19 +24,27 @@
     //////////////////////////////////////////////////
 
     function saveMoment(currentMoment) {
-      vm.showSaveProgress();      
+      vm.showSaveProgress();
+      currentMoment.releaseDate = vm.releaseDate;
+      console.log('currentMoment.releaseDate', currentMoment.releaseDate);
+      console.log('This is a new Date: ', new Date(currentMoment.releaseDate));
       DataHandler.moment.set(currentMoment);
 
       DataHandler.moment.save()      
       .then(function(momentID) {
         console.log('Moment ' + momentID.data + ' has been saved');
         currentMoment = angular.extend(DataHandler.moment.get(), {
-          ID : momentID.data,
-          releaseDate : vm.releaseDate
+          ID : momentID.data
         });
 
         DataHandler.moment.set(currentMoment);
         vm.hideSaveProgress();
+
+        // NOTE: resets create moment data
+        vm.time = null;
+        vm.date = null;
+        vm.currentMoment = new DataHandler.moment.constructor();
+
         $state.go('mementos');
       })
       .catch(function(err) {        
@@ -46,6 +54,8 @@
     }
     
     function showDatePicker() {
+      vm.date = null;
+      vm.time = null;
       DatePicker.showDatePicker()
         .then(function(date) {
           // normalizes date
@@ -61,10 +71,11 @@
     }
 
     function showTimePicker(date) {
+      vm.time = null;
       DatePicker.showTimePicker(date)
         .then(function(time) {
           vm.time = time;
-          vm.releaseDate = vm.date + (vm.time.getHours() * 60 * 60000) + (vm.time.getMinutes() * 60000);
+          vm.releaseDate = vm.date.getTime() + (vm.time.getHours() * 60 * 60000) + (vm.time.getMinutes() * 60000);
         })
         .catch(function(err) {
           console.error(err)
@@ -98,6 +109,7 @@
     function hideSaveProgress() {
       return $ionicLoading.hide();
     }
+    
 
   }
 

@@ -17,6 +17,7 @@
     
     function set(newMoment) {
       moment = angular.copy(newMoment);
+      return newMoment;
     }
 
     function get() {

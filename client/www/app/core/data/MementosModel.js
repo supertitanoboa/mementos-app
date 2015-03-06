@@ -16,6 +16,7 @@
       set: set,
       getAll: getAll,
       findByViewer: findByViewer,
+      updateOrInsert: updateOrInsert,
       isUpdating: true
     };
 
@@ -28,7 +29,7 @@
     }
 
     function add(memento, viewer) {      
-      mementos[viewer].push(memento);
+      mementos[viewer].push(angular.copy(memento));
     }
 
     function getAll() {
@@ -37,6 +38,9 @@
 
     function updateOrInsert(memento, viewer) {
       var mementoListIndex = -1;
+      memento = angular.copy(memento);
+      var i;
+
       for (i = 0; i < mementos[viewer].length; i++) {
         if (mementos[viewer][i].ID === memento.ID){
           mementoListIndex = i;
@@ -44,15 +48,18 @@
         }
       }
 
-      if (mementoListIndex > 0) {
+      if (mementoListIndex >= 0) {
+        console.log('Mememto ID: ' + memento.ID + 'has been updated.');
         mementos[viewer][mementoListIndex] = memento;
       } else {
+        console.log('Memento ID: ' + memento.ID + 'has been added to mementos list.');
         add(memento, viewer);
       }
     }
 
     function findByViewer(ID, viewer) {
       var memento;
+      var i;
 
       for (i = 0; i < mementos[viewer].length; i++) {
         memento = mementos[viewer][i];

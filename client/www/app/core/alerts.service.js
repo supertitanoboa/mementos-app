@@ -45,7 +45,7 @@
        template: 'Whoops, there was an error saving your moment! Please try again'
      });
    };
-
   }
 
 })();
+
