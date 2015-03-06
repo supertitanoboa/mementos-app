@@ -2,13 +2,13 @@
   'use strict';
 
   angular
-    .module('app.core')
+    .module('app.data')
     .factory('dataservice', dataservice);
   
   /*FIXME: makesure ngInject is working during minification*/
   /* @ngInject */ 
-  function dataservice($http, $q, upload, CurrentUser) {
-    var hostURL = 'https://40643827.ngrok.com';
+  function dataservice($http, $q, upload) {
+    var hostURL = 'http://mementos.io';
 
     var service = {
       getMementos: getMementos,
@@ -16,6 +16,7 @@
       updateMemento: updateMemento,
       saveMoment: saveMoment,
       saveMemento: saveMemento,
+      uploadItems: uploadItems,
       signup: signup,
       signin: signin
     };
@@ -24,10 +25,7 @@
     
     ///////////////////////////////////////////////////////////////
 
-    function getMementos() {
-      // NOTE: this is manual, and could be set up as an httpInterceptor
-      var sessionID = CurrentUser.get().sessionID;
-
+    function getMementos(sessionID) {      
       return $http({
         method: 'GET',
         url: hostURL + '/api/1/mementos',
@@ -36,14 +34,14 @@
           'sessionID': sessionID
         }
       })
-        .success(function(result){
-          console.log('Successful getting mementos');
-          return result;
-        })
-        .error(function(error){
-          console.log('There was an error getting mementos');
-          throw error;
-        });
+      .success(function(result){
+        console.log('Successful getting mementos');        
+        return result.data;
+      })
+      .error(function(error){
+        console.log('There was an error getting mementos');
+        throw error;
+      });
     }
 
     function signup(userCredentials) {
@@ -85,11 +83,8 @@
           throw error;
         });    
     }
-    
-    function getMemento(ID, viewer) {
-      // NOTE: this is manual, and could be set up as an httpInterceptor
-      var sessionID = CurrentUser.get().sessionID;
 
+    function getMemento(ID, viewer, sessionID) {
       return $http({
         method: 'GET',
         url: hostURL + '/api/1/mementos/' + ID + '/' + viewer,
@@ -98,20 +93,17 @@
           'sessionID': sessionID
         }
       })
-        .success(function(result){
-          console.log('Successful getting memento');
-          return result;
-        })
-        .error(function(error){
-          console.log('There was an error getting memento');
-          throw error;
-        });
+      .success(function(result){
+        console.log('Successful getting memento');
+        return result;
+      })
+      .error(function(error){
+        console.log('There was an error getting memento');
+        throw error;
+      });
     }
     
-    function updateMemento(mementoID, momentID) {
-      // NOTE: this is manual, and could be set up as an httpInterceptor
-      var sessionID = CurrentUser.get().sessionID;
-
+    function updateMemento(mementoID, momentID, sessionID) {
       return $http({
         method: 'PUT',
         url: hostURL + '/api/1/mementos/' + mementoID,
@@ -119,53 +111,43 @@
           'Content-Type': 'application/json',
           'sessionID': sessionID
         },
-        data: momentID
+        data: {
+          momentID: momentID
+        }
       })
+      .success(function(result){
+        console.log('Successful updating memento');
+        return result;
+      })
+      .error(function(error) {
+        console.log('There was an error updating memento');
+        console.log(error);        
+      });
+    }
+    
+    // uploads moment content to S3, then saves moment to database
+    function saveMoment(moment, sessionID) {                 
+        return $http({
+          method: 'POST',
+          url: hostURL + '/api/1/moments',
+          headers: {
+            'Content-Type': 'application/json',
+            'sessionID': sessionID
+          },
+          data: moment
+        })
         .success(function(result){
-          console.log('Successful updating memento');
-          return result;
+          console.log('Successful saving moment');
+          return result.data;
         })
         .error(function(error){
-          console.log('There was an error updating memento');
+          console.error('There was an error saving moment');
           throw error;
         });
     }
     
-    // uploads moment content to S3, then saves moment to database
-    function saveMoment(moment) {
-      return uploadItems(moment.content)
-        .then(function(momentContent) {
-          // NOTE: this is manual, and could be set up as an httpInterceptor
-          var sessionID = CurrentUser.get().sessionID;
-
-          // S3 urls added to moment content
-          moment.content = momentContent
-           
-          return $http({
-            method: 'POST',
-            url: hostURL + '/api/1/moments',
-            headers: {
-              'Content-Type': 'application/json',
-              'sessionID': sessionID
-            },
-            data: moment
-          })
-            .success(function(result){
-              console.log('Successful saving moment');
-              return result;
-            })
-            .error(function(error){
-              console.error('There was an error saving moment');
-              throw error;
-            });
-        })
-        .catch(function(err) {
-          console.log('There was an error retrieving all moment content');
-        });
-    }
-    
     // sends each moment item to uploadItem and notifies saveMoment when uploads are complete
-    function uploadItems(items) {
+    function uploadItems(items, sessionID) {
       var unfinished = items.length;
       var running = 0;
       var deferred = $q.defer();
@@ -176,7 +158,7 @@
       for (i = 0; i < items.length; i++) {
         (function(index) {
           running++;
-          uploadItem(items[index])
+          uploadItem(items[index], sessionID)
             .then(function(S3Data) {
               momentItems.push({type: S3Data.config.url.split('type=')[1], url: S3Data.data.url});
               running--;
@@ -188,6 +170,7 @@
             })
             .catch(function(err) {
               console.log('There was an error uploading to S3', err);
+              return deferred.reject(err);
             });
         }(i));
       }
@@ -197,11 +180,7 @@
     }
     
     // gets S3 signed-url path and uploads item to S3
-    function uploadItem(item) {
-      // NOTE: this is manual, and could be set up as an httpInterceptor
-      var sessionID = CurrentUser.get().sessionID;
-
-      // request to server for S3 signed_url path
+    function uploadItem(item, sessionID) {            
       return $http({
         method: 'GET',
         url: hostURL + '/s3?s3_object_type=' + item.type,
@@ -226,11 +205,8 @@
           throw error;
         });
     }
-    
-    // NOTE: addMoment happens concurrently with memento creation
-    function saveMemento(memento) {
-      var sessionID = CurrentUser.get().sessionID;
-
+        
+    function saveMemento(memento, sessionID) {      
       return $http({
         method: 'POST',
         url: hostURL + '/api/1/mementos',
@@ -240,14 +216,14 @@
         },
         data: memento
       })
-        .success(function(result){
-          console.log('Successful saving memento');
-          return result;
-        })
-        .error(function(error){
-          console.error('There was an error saving memento');
-          throw error;
-        });
+      .success(function(mementoID){
+        console.log('Successful saving memento');
+        return mementoID;
+      })
+      .error(function(error){
+        console.error('There was an error saving memento');
+        throw error;
+      });
     }
 
   }

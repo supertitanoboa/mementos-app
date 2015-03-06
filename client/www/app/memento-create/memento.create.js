@@ -6,41 +6,70 @@
     .controller('MementoCreate', MementoCreate);
 
   /* @ngInject */
-  function MementoCreate($state, dataservice, CurrentMoment, $ionicHistory) {
+  function MementoCreate($state, DataHandler, $ionicHistory) {
     /*jshint validthis: true */
     var vm = this;
     vm.title = 'Create Memento';
-    vm.currentMemento = new EmptyMemento();
-    vm.momentID = {};
-    vm.saveMemento = saveMemento;
-    vm.addRecipient = addRecipient;
-    vm.removeRecipient = removeRecipient;
-    vm.recipient = '';
-    vm.goBack = goBack;
+    vm.currentMemento = new DataHandler.memento.constructor();
+    
+    vm.saveMemento        = saveMemento;
+    vm.routeToMemento     = routeToMemento;
+    vm.addMomentToMemento = addMomentToMemento;
+    vm.addRecipient       = addRecipient;
+    vm.removeRecipient    = removeRecipient;
+    vm.recipient          = '';
+    vm.goBack             = goBack;
 
-    activate();
 
     ////////////////////////////////////////////////////////////
-
-    function activate() {
-      vm.momentID = CurrentMoment.get().momentID;
-    }
     
     function saveMemento(currentMemento) {
-      currentMemento.moments.push(vm.momentID);
+      var currentMoment = DataHandler.moment.get();
 
-      return dataservice.saveMemento(currentMemento)
-        .then(function(mementoID) {
-          console.log('Memento ' + mementoID.data + ' has been saved.');
-
-          // NOTE: sets moment back to an empty object
-          CurrentMoment.set({});
-
-          $state.go('memento', {ID: mementoID.data});
+      DataHandler.memento.set(currentMemento);
+      return DataHandler.memento.save()
+      .then(function(mementoID) {
+        var updatedMemento = angular.extend(currentMemento, {
+          ID: mementoID.data
         })
-        .catch(function(err) {
-          console.error('There was an error saving memento:', err);
-        });
+        console.log('Memento ' + mementoID.data + ' has been created.');
+        return updatedMemento;
+      })
+      .then(function(updatedMemento) {        
+
+        DataHandler.memento.set(updatedMemento);
+
+        if (currentMoment.hasOwnProperty('ID')) {          
+          addMomentToMemento(currentMoment);
+        } else {
+          routeToMemento({
+            data: updatedMemento.ID
+          });
+        } 
+      })
+      .catch(function(err) {
+        console.error('Error creating memento');
+        console.error(err);
+      })
+
+    }
+
+    function routeToMemento() {
+      DataHandler.moment.set({});
+      var memento = DataHandler.memento.get();
+      DataHandler.mementos.add(memento, 'created');      
+      console.log('New Moment Succesfully added to ' + memento.ID);
+      $state.go('memento', { ID: memento.ID });
+    }
+
+    function addMomentToMemento(moment) {
+      return DataHandler.memento.addMoment(moment)
+      .then(routeToMemento)
+      .catch(function(err) {
+        // TODO: Connection errors, DB errors.
+        // savingError(err);
+        console.error('There was an error adding moment to Memento:', err);
+      });
     }
 
     function addRecipient(recipient) {
@@ -63,16 +92,6 @@
       vm.currentMemento.recipients = temp;
     }
 
-    function EmptyMemento() {
-      this.title = '';
-      this.recipients = [];
-      this.options = {
-        'public'  : false,
-        'releaseType' : 'default',
-      };
-      this.moments = [];
-    }
-    
     // NOTE: all this nav and progress functionality should become part of a service library
     function goBack() {
       return $ionicHistory.goBack()

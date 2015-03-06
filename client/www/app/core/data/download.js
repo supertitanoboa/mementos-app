@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('app.core')
+    .module('app.data')
     .factory('download', download);
   
   /* @ngInject */ 
@@ -17,7 +17,6 @@
     
     // sends moment item to S3
     function S3Download(url, type) {
-
       return $http({
         method: 'GET',
         url: url,

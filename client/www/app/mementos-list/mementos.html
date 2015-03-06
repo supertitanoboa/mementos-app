@@ -10,13 +10,13 @@
 
     <div class="item item-divider"> Created </div>
     
-      <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-right" on-tap="vm.addMoment({{memento.ID}})">
-        {{memento.title}}
 
+      <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-right" on-tap="vm.addMoment({{ memento }})">
+        {{memento.title}}
       <i class="icon ion-chevron-right"></i>
     </ion-item>
     
-    <div ng-hide="">
+    <div ng-hide="vm.moment.hasOwnProperty('ID')">
       <div class="item item-divider"> Received </div>
       
       <ion-item ng-repeat="memento in vm.mementos.received" class="item-icon-right" on-tap="vm.goToMemento({{memento.ID}})">

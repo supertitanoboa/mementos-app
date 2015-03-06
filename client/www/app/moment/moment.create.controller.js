@@ -6,61 +6,43 @@
     .controller('MomentCreate', MomentCreate);
 
   /* @ngInject */
-  function MomentCreate($state, dataservice, CurrentMoment, $ionicHistory, $ionicLoading, DatePicker, Alerts) {
-    
+  function MomentCreate($state, DataHandler, DatePicker, Alerts, $ionicHistory, $ionicLoading) {
     /*jshint validthis: true */
     var vm = this;
-    vm.saveMoment = saveMoment;
-    vm.currentMoment = new EmptyMoment();
+    vm.time = null;
+    vm.date = null;
+    vm.releaseDate;
+    vm.currentMoment = new DataHandler.moment.constructor();
+
     vm.goBack = goBack;
+    vm.saveMoment = saveMoment;
     vm.showSaveProgress = showSaveProgress;
     vm.hideSaveProgress = hideSaveProgress;
     vm.showDatePicker = showDatePicker;
     vm.showTimePicker = showTimePicker;
-    vm.date = null;
-    vm.time = null;
-    vm.releaseDate;
       
     //////////////////////////////////////////////////
 
     function saveMoment(currentMoment) {
-      // opens saving in progress window
-      vm.showSaveProgress();
+      vm.showSaveProgress();      
+      DataHandler.moment.set(currentMoment);
 
-      dataservice.saveMoment(currentMoment)
-        .then(function(momentID) {
-          console.log('Moment ' + momentID.data + ' has been saved');
-          
-          // saves moment ID
-          CurrentMoment.set({momentID: momentID.data});
-          
-          // closes saving in progress window and send user to mementos view
-          $state.go('mementos');
-          vm.hideSaveProgress();
-
-          // resets currentMoment, date, and time
-          vm.currentMoment = new EmptyMoment();
-          vm.date = null;
-          vm.time = null;
-        })
-        .catch(function(err) {
-          console.error('There was an error saving moment:', err);
-          Alerts.errorSavingMoment();
+      DataHandler.moment.save()      
+      .then(function(momentID) {
+        console.log('Moment ' + momentID.data + ' has been saved');
+        currentMoment = angular.extend(DataHandler.moment.get(), {
+          ID : momentID.data,
+          releaseDate : vm.releaseDate
         });
-    }
 
-    function EmptyMoment() {
-      var today = new Date();
-      this.title = '';
-      this.content = []; 
-      this.releaseDate = vm.releaseDate;
-      this.meta = {
-        location: {
-          latitude: null,
-          longitude: null,
-          place: ''
-        }
-      };
+        DataHandler.moment.set(currentMoment);
+        vm.hideSaveProgress();
+        $state.go('mementos');
+      })
+      .catch(function(err) {        
+        Alerts.errorSavingMoment();
+        console.error('There was an error saving moment:', err);
+      });
     }
     
     function showDatePicker() {

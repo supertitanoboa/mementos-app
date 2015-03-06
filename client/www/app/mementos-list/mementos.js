@@ -6,17 +6,17 @@
     .controller('Mementos', Mementos);
 
   /* @ngInject */
-  function Mementos(dataservice, CurrentMoment, $state, $ionicLoading, CurrentViewer) {
+  function Mementos(DataHandler, Events, $state, $ionicLoading) {
     /*jshint validthis: true */
     var vm = this;
+    vm.title    = 'Mementos';
     vm.mementos = {};
-    vm.title = 'Mementos';
-    vm.addMoment = addMoment;
-    vm.getMementos = getMementos;
-    vm.setViewer = setViewer;
+    vm.moment   = DataHandler.moment.get();
+
+    vm.addMoment        = addMoment;
+    vm.getMementos      = getMementos;
     vm.goToMomentCreate = goToMomentCreate;
-    vm.goToMemento = goToMemento;
-    vm.momentID = {};
+    vm.goToMemento      = goToMemento;
     vm.showLoadProgress = showLoadProgress;
     vm.hideLoadProgress = hideLoadProgress;
 
@@ -25,72 +25,50 @@
     ////////////////////////////////////////////////////////////
 
     function activate() {
-      // opens load in progress window
-      vm.showLoadProgress();
-
-      vm.getMementos()
-        .then(function() {
-          console.log('Activated mementos view');
-
-          // closes load in progress window
+      // TODO: Don't get Mementos until mementos.isUpdating = false.
+      if (DataHandler.mementos.isUpdating) {
+        vm.showLoadProgress();
+        Events.on('mementosUpdateComplete', function() {
+          vm.getMementos();
           vm.hideLoadProgress();
-        })
-        .catch(function(err) {
-          console.error('There was an error getting mementos:', err);
         });
+      } else {
+        vm.getMementos();        
+      }
     }
 
     function getMementos() {
+      vm.mementos = DataHandler.mementos.getAll();
+    }
 
-      return dataservice.getMementos()
-        .then(function(mementos) {
-          console.log('Successful getting mementos');
-          vm.mementos = mementos.data;
+    function addMoment(memento) {
+
+      if (vm.moment.hasOwnProperty('ID')) {
+        DataHandler.memento.set(memento);      
+        return DataHandler.memento.addMoment(vm.moment)
+        .then(function(data) {
+          console.log('Memento has been updated');
+          
+          // NOTE: sets moment back to an empty object
+          DataHandler.moment.set({});
+          vm.goToMemento(memento.ID);          
         })
         .catch(function(err) {
-          console.error('There was an error getting mementos:', err);
-        });
+          console.error('There was an error updating the memento:', err);
+        })
+      } else {
+        vm.goToMemento(memento.ID);
+      }
     }
 
-    function addMoment(mementoID) {
-      // get current moment
-      vm.momentID = CurrentMoment.get();
-
-      // if moment exists, update memento
-      if(vm.momentID.hasOwnProperty('momentID')) {
-        // update memento in database
-        return dataservice.updateMemento(mementoID, vm.momentID)
-          .then(function(data) {
-            console.log('Memento ' + mementoID + ' has been updated');
-            
-            // set current moment back to an empty object and go to update memento
-            CurrentMoment.set({});
-            vm.goToMemento(mementoID, 'author');
-          })
-          .catch(function(err) {
-            console.error('There was an error updating the memento:', err);
-          })
-      } else {
-        vm.goToMemento(mementoID, 'author');
-      }
-
-    }
-
-    function goToMemento(mementoID, viewer) {
-      if (viewer) {
-        vm.setViewer(viewer);
-      } else {
-        vm.setViewer('recipient')
-      }
-
+    function goToMemento(mementoID) {      
       $state.go('memento', {ID: mementoID});
-    }
-
-    function setViewer(viewer) {
-      CurrentViewer.set({viewer: viewer});
+    }    
+    
+    function goToMomentCreate () {
+      $state.go('moment')
     }
     
-    // NOTE: all this nav and progress functionality should become part of a service library
     function showLoadProgress() {
       return $ionicLoading.show({
         template: 'Loading mementos...'
@@ -100,10 +78,5 @@
     function hideLoadProgress() {
       return $ionicLoading.hide();
     }
-
-    function goToMomentCreate () {
-      $state.go('moment')
-    }
-
   }
 })();
