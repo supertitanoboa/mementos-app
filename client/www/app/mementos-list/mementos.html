@@ -1,20 +1,25 @@
+<!-- FIXME: need different behavior based on which mode (moment created or not) -->
 <ion-view view-title="{{vm.title}}">
+
+  <ion-nav-buttons side="secondary">
+    <button ng-hide="" on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled"></button>
+  </ion-nav-buttons>
+
   <ion-content>
-    <ion-item href="#/create"> Create Memento </ion-item>
+    <ion-item href="#/mementocreate"> Create Memento </ion-item>
 
     <div class="item item-divider"> Created </div>
     
-    <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-right" href="#/mementos/{{memento.ID}}" on-tap="vm.addMoment({{memento.ID}})">
-      {{memento.title}}
+      <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-right" on-tap="vm.addMoment({{memento.ID}})">
+        {{memento.title}}
 
       <i class="icon ion-chevron-right"></i>
     </ion-item>
     
-    <!-- FIXME: ng-hide is not working for truthy values -->
-    <div ng-hide="vm.MomentID">
+    <div ng-hide="">
       <div class="item item-divider"> Received </div>
       
-      <ion-item ng-repeat="memento in vm.mementos.received" class="item-icon-right" href="#/mementos/{{memento.ID}}">
+      <ion-item ng-repeat="memento in vm.mementos.received" class="item-icon-right" on-tap="vm.goToMemento({{memento.ID}})">
         {{memento.title}}
 
         <i class="icon ion-chevron-right"></i>

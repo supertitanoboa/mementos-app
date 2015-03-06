@@ -5,12 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+    <!-- Ionic CSS -->
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="content/css/app.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <!-- Custom styles -->
+    <link href="content/css/app.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -30,12 +29,21 @@
     <script src="app/core/dataservice.js"></script>
     <script src="app/core/upload.js"></script>
     <script src="app/core/download.js"></script>
+    <script src="app/core/logout.js"></script>
     <script src="app/core/CurrentMoment.js"></script>
     <script src="app/core/notifications.service.js"></script>
+    <script src="app/core/alerts.service.js"></script>
     <script src="app/core/CurrentUser.js"></script>
+    <script src="app/core/CurrentMode.js"></script>
+    <script src="app/core/CurrentViewer.js"></script>
     <script src="app/core/media/media.module.js"></script>
     <script src="app/core/media/media.camera.service.js"></script>
+    <script src="app/core/tools/tools.module.js"></script>
+    <script src="app/core/tools/tools.datepicker.service.js"></script>
+    <script src="app/home/home.module.js"></script>
+    <script src="app/home/home.js"></script>
     <script src="app/moment/moment.module.js"></script>
+    <script src="app/moment/moment.controller.js"></script>
     <script src="app/moment/moment.render.controller.js"></script>
     <script src="app/moment/moment.create.controller.js"></script>
     <script src="app/moment/items/moment.items.module.js"></script>
@@ -55,8 +63,6 @@
   <body ng-app="app">
     
     <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
     </ion-nav-bar>
     
     <ion-nav-view></ion-nav-view>

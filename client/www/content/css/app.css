@@ -14,6 +14,357 @@
   max-width: 85vw;
   margin: 0 auto;
 }
+
+/* Roboto thin */
+
+@font-face {
+  font-family: robotoThin;
+  src: url("../fonts/roboto/Roboto-Thin.ttf") format("truetype");
+}
+
+/* Roboto light */
+
+@font-face {
+  font-family: robotoLight;
+  src: url("../fonts/roboto/Roboto-Light.ttf") format("truetype");
+}
+
+html,
+input,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: robotoLight;
+}
+
+.new-items .buttons {
+  display: block;
+  margin: 0 auto;
+}
+
+.new-items .buttons button {
+  display: inline-block;
+}
+
+.item-image-wrap img {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 85vw;
+  margin: 0 auto;
+}
+
 .moment-title input[type='text'] {
   text-align: center;
+}
+
+button.cadet {
+  color: cadetblue;
+  background-color: #DFF;
+  border: none;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+button.activated {
+  background-color: transparent !important;
+}
+
+/* Overwrite the default button activated behavior of turning the button grey on click */
+
+/* Home page */
+
+.home {
+  background-color: ivory;
+  /*background: url(../assets/sunset_large.jpg) center no-repeat;*/
+  background-size: cover;
+}
+
+.home-logo {
+  background: url(../assets/mementos/mementos-noname-blue-png24.png) center fixed no-repeat;
+  height: 220px;
+  background-size: 71vw;
+  background-position: 50% 44%;
+}
+
+.home-footer {
+  background-color: #FFFFF0;
+  padding: 50px;
+  /*margin-top: 50vh;*/
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 50px;
+  opacity: 0.5;
+}
+
+.mementos-title,
+.slogan {
+  font-family: robotoLight;
+  color: cadetblue;
+  text-align: center;
+}
+
+.mementos-title {
+  padding-top: 100px;
+}
+
+button.signup,
+button.login {
+  position: absolute;
+  width: 39%;
+  margin-top: -70px;
+}
+
+button.signup {
+  left: 0;
+  margin-left: 20px;
+}
+
+button.login {
+  right: 0;
+  margin-right: 20px;
+}
+
+/* Signup and login page */
+
+[nav-bar-transition="ios"] [nav-bar="active"] .bar,
+[nav-bar-transition="ios"] [nav-bar="entering"] .bar {
+  background-color: #DFF !important;
+}
+
+[nav-view-transition="ios"][nav-view-direction="forward"], [nav-view-transition="ios"][nav-view-direction="back"] {
+  background: -webkit-linear-gradient(#DFF, ivory);
+  background: -o-linear-gradient(#DFF, ivory);
+  background: -moz-linear-gradient(#DFF, ivory);
+  background: linear-gradient(#DFF, ivory);
+}
+
+.bar.bar-stable .title {
+  color: cadetblue;
+}
+
+.bgView {
+  background-color: ivory;
+}
+
+/* Capture this moment view */
+
+.capture {
+  text-align: center;
+  margin-top: 5vh !important;
+}
+
+.capture-top {
+  margin-top: 3vh;
+}
+
+/* Make room for the bigger header */
+
+.toproom {
+  margin-top: 6.3vh;
+}
+
+.plusSign {
+  background: url("../assets/1425382348_circle_add_plus-128.png") no-repeat center;
+  height: 40vh;
+}
+
+.captureMoment {
+  background: -webkit-linear-gradient(#DFF, ivory);
+  background: -o-linear-gradient(#DFF, ivory);
+  background: -moz-linear-gradient(#DFF, ivory);
+  background: linear-gradient(#DFF, ivory);
+}
+
+.createMoment {
+  background: -webkit-linear-gradient(ivory, #DFF);
+  background: -o-linear-gradient(ivory, #DFF);
+  background: -moz-linear-gradient(ivory, #DFF);
+  background: linear-gradient(ivory, #DFF);
+}
+
+.spin {
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 400ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 400ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  animation-name: spin;
+  animation-duration: 400ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.antispin {
+  -webkit-animation-name: antispin;
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: antispin;
+  -moz-animation-duration: 400ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: antispin;
+  -ms-animation-duration: 400ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  animation-name: antispin;
+  animation-duration: 400ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-ms-keyframes antispin {
+  from {
+    -ms-transform: rotate(360deg);
+  }
+
+  to {
+    -ms-transform: rotate(0deg);
+  }
+}
+
+@-moz-keyframes antispin {
+  from {
+    -moz-transform: rotate(360deg);
+  }
+
+  to {
+    -moz-transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes antispin {
+  from {
+    -webkit-transform: rotate(360deg);
+  }
+
+  to {
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+@keyframes antispin {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.fadein {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.fadeout {
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.moment-title > input {
+  border: none;
+}
+
+.captureButtons {
+  border: none;
+  background-color: transparent;
+}
+
+.new-image-button {
+  font-size: 68px;
+  margin: 0 auto;
+}
+
+.new-text-button {
+  font-size: 82px;
+  margin: 0 auto;
+  margin-top: -9px;
+}
+
+.moment-save {
+  width: 50%;
+  margin: 0 auto;
+}
+.moment-title input[type='text'] {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.date-time {
+  border: none;
+  border-radius: 9px;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  display: block;
+  color: cadetblue;
+  background-color: #DFF;
+}
+
+.moment-text {
+  padding-bottom: 0px;
+}
+
+.show-text {
+  box-shadow: none;
+  margin: 8px 10px;
 }

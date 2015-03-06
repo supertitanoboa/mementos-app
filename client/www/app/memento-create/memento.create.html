@@ -1,4 +1,8 @@
-<ion-view view-title="{{vm.title}}">
+<ion-view view-title="">
+  <ion-nav-buttons side="primary">
+    <button on-tap="vm.goBack()" class="button button-icon icon">Cancel</button>
+  </ion-nav-buttons>
+  
   <ion-content>
     
     <div class="list list-inset">
@@ -9,9 +13,16 @@
     
     <div class="list list-inset">
       <label class="item item-input">
-        <input type="text" placeholder="Recipients" ng-model="vm.currentMemento.recipients[0]">
+        <input type="text" placeholder="Recipient Email" ng-model="vm.recipient">
       </label>
     </div>
+
+    <button ng-disabled="!vm.recipient" on-tap="vm.addRecipient(vm.recipient)">Add</button>
+
+    <span ng-repeat="recipient in vm.currentMemento.recipients">
+      {{recipient}} 
+      <span on-tap="vm.removeRecipient(recipient)">X </span>
+    </span>
     
     <!-- FIXME: both link and button need to be disabled until user has inputed validated info -->
     <button ng-disabled="!vm.currentMemento.title || !vm.currentMemento.recipients[0]" on-tap="vm.saveMemento(vm.currentMemento)" class="button button-block button-positive">

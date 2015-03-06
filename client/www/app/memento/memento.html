@@ -1,16 +1,23 @@
-<!-- FIXME: memento.title doesn't render right away -->
 <ion-view view-title="{{vm.memento.title}}">
+  
+  <ion-nav-buttons side="primary">
+    <!-- NOTE: it should also have the notification circle for new moments -->
+    <button on-tap="vm.goToMementos()" class="button button-icon icon">Logo</button>
+  </ion-nav-buttons>
+  
+  <ion-nav-buttons side="secondary">
+    <button on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled"></button>
+  </ion-nav-buttons>
+
   <ion-content>
 
-    <div ng-repeat="moment in vm.memento.moments">
+    <div ng-repeat="moment in vm.memento.moments | orderBy: 'releaseDate' ">
       {{moment.title}}
       
       <div ng-repeat="item in moment.content">
-
+        
         <show-text ng-if="item.type === 'text/plain'"></show-text>
         <show-image ng-if="item.type === 'image/jpeg'"></show-image>
-        <!-- <show-audio ng-if="item.type === 'audio'"></show-audio>
-        <show-video ng-if="item.type === 'video'"></show-video> -->
       </div>
     
     </div>

@@ -3,6 +3,6 @@
   'use strict';
   angular.module('app.moment', [
     
-    'app.moment.items'
+    'app.moment.items',
   ]);
 })();

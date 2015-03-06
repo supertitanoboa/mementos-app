@@ -6,10 +6,9 @@
     .factory('dataservice', dataservice);
   
   /*FIXME: makesure ngInject is working during minification*/
-  
   /* @ngInject */ 
   function dataservice($http, $q, upload, CurrentUser) {
-    var hostURL = 'https://mementos.ngrok.com';
+    var hostURL = 'https://40643827.ngrok.com';
 
     var service = {
       getMementos: getMementos,
@@ -17,7 +16,6 @@
       updateMemento: updateMemento,
       saveMoment: saveMoment,
       saveMemento: saveMemento,
-      /*NOTE: should move these to seperate service*/
       signup: signup,
       signin: signin
     };
@@ -26,7 +24,6 @@
     
     ///////////////////////////////////////////////////////////////
 
-    // NOTE: server will only return mementos associated with user
     function getMementos() {
       // NOTE: this is manual, and could be set up as an httpInterceptor
       var sessionID = CurrentUser.get().sessionID;
@@ -89,14 +86,13 @@
         });    
     }
     
-    // gets memento
-    function getMemento(ID) {
+    function getMemento(ID, viewer) {
       // NOTE: this is manual, and could be set up as an httpInterceptor
       var sessionID = CurrentUser.get().sessionID;
 
       return $http({
         method: 'GET',
-        url: hostURL + '/api/1/mementos/' + ID,
+        url: hostURL + '/api/1/mementos/' + ID + '/' + viewer,
         headers: {
           'Content-Type': 'application/json',
           'sessionID': sessionID
@@ -112,7 +108,6 @@
         });
     }
     
-    // updates existing memento
     function updateMemento(mementoID, momentID) {
       // NOTE: this is manual, and could be set up as an httpInterceptor
       var sessionID = CurrentUser.get().sessionID;

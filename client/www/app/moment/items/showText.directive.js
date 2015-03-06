@@ -19,7 +19,7 @@
 
         vm.activate   = activate;
         vm.getPayload = getPayload;
-        vm.hasPayload = false; 
+        vm.hasPayload = false;
 
         activate();
 
@@ -27,7 +27,7 @@
 
         function activate() {
           // NOTE: utilized $stateParams to access difference between moment and memento scope
-          if ($stateParams.ID) {
+          if($stateParams.ID) {
             vm.getPayload(vm.item.url, vm.item.type)
             .then(function(payload) {
               vm.item.payload = payload;
@@ -39,7 +39,7 @@
           } 
         }
 
-        function getPayload (url, type) {
+        function getPayload(url, type) {
           return download.S3Download(url, type)
             .then(function(payload) {
               return payload.data;
