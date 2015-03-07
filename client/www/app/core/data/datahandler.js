@@ -80,6 +80,11 @@
         moment.content = updatedContent;        
         MomentModel.set(moment);
         return moment.ID;
+      })
+      .catch(function(err) {
+        console.error('There was an error uploading Items to S3.');
+        console.error(err);
+        return err;
       });
     }
 

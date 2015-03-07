@@ -26,7 +26,7 @@
         data: payload
       })
       .success(function(data, status, headers, config) {
-        console.log('Succesful uploading moment item to S3');
+        console.log('Succesful uploading moment item to S3');        
       })
       .error(function(data, status, headers, config) {
         console.log('There was an error uploading moment item to S3');

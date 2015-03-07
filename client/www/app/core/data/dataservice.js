@@ -183,27 +183,38 @@
     function uploadItem(item, sessionID) {            
       return $http({
         method: 'GET',
-        url: hostURL + '/s3?s3_object_type=' + item.type,
+        url: hostURL + '/s3?s3_object_type=' + item.type,        
         headers: {
           'Content-Type': 'application/json',
+          'sessionID': sessionID,
+          'Cache-Control': 'no-cache'
+        },
+        // Since we're potentially sending multiple similar request to the server,
+        // we need to put on some information that's unique for each request along with
+        // 'Cache-Control' : 'no-cache' in the headers.
+        params: {
+          'timestamp': new Date().valueOf(),
           'sessionID': sessionID
         }
       })
-        .success(function(result){
-          console.log('Succesful getting S3 url');
-          // utilizes upload service to upload moment item to S3
-          return upload.S3Upload(item.payload, item.type, result.signed_request)
-            .then(function(S3data) {
-              return S3data;
-            })
-            .catch(function(err) {
-              console.log('There was an error uploading moment item to S3', err);
-            });
-        })
-        .error(function(error){
-          console.log('There was an error getting S3 url');
-          throw error;
-        });
+      .success(function(result){
+        console.log('Succesful getting S3 url');
+        // utilizes upload service to upload moment item to S3
+        console.log('This is the request that was received by the server: ');
+        console.log(result.signed_request);
+
+        return upload.S3Upload(item.payload, item.type, result.signed_request)
+          .then(function(S3data) {
+            return S3data;
+          })
+          .catch(function(err) {
+            console.log('There was an error uploading moment item to S3', err);
+          });
+      })
+      .error(function(error){
+        console.log('There was an error getting S3 url');
+        throw error;
+      });
     }
         
     function saveMemento(memento, sessionID) {      
