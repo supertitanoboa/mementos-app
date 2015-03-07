@@ -6,23 +6,26 @@
     .controller('MementoCreate', MementoCreate);
 
   /* @ngInject */
-  function MementoCreate($state, DataHandler, $ionicHistory, Events) {
+  function MementoCreate($state, DataHandler, $ionicHistory, Events, $ionicLoading, Alerts) {
     /*jshint validthis: true */
     var vm = this;
     vm.title = 'Create Memento';
     vm.currentMemento = new DataHandler.memento.constructor();
+    vm.recipient          = '';
     
     vm.saveMemento        = saveMemento;
     vm.routeToMemento     = routeToMemento;
     vm.addMomentToMemento = addMomentToMemento;
     vm.addRecipient       = addRecipient;
     vm.removeRecipient    = removeRecipient;
-    vm.recipient          = '';
     vm.goBack             = goBack;
+    vm.showSaveProgress   = showSaveProgress;
+    vm.hideSaveProgress   = hideSaveProgress;
 
     ////////////////////////////////////////////////////////////
     
     function saveMemento(currentMemento) {
+      vm.showSaveProgress();
       var currentMoment = DataHandler.moment.get();
 
       DataHandler.memento.set(currentMemento);
@@ -37,6 +40,7 @@
       .then(function(updatedMemento) {        
 
         DataHandler.memento.set(updatedMemento);
+        vm.hideSaveProgress();
 
         if (currentMoment.hasOwnProperty('ID')) {          
           addMomentToMemento(currentMoment);
@@ -47,6 +51,8 @@
         } 
       })
       .catch(function(err) {
+        vm.hideSaveProgress();
+        Alerts.errorSavingMemento();
         console.error('Error creating memento');
         console.error(err);
       })
@@ -99,6 +105,16 @@
     // NOTE: all this nav and progress functionality should become part of a service library
     function goBack() {
       return $ionicHistory.goBack()
+    }
+
+    function showSaveProgress() {
+      return $ionicLoading.show({
+        template: 'Saving memento...'
+      });
+    }
+
+    function hideSaveProgress() {
+      return $ionicLoading.hide();
     }
 
   }

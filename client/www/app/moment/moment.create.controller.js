@@ -47,7 +47,8 @@
 
         $state.go('mementos');
       })
-      .catch(function(err) {        
+      .catch(function(err) {
+        vm.hideSaveProgress();
         Alerts.errorSavingMoment();
         console.error('There was an error saving moment:', err);
       });

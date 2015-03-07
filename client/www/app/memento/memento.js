@@ -6,16 +6,33 @@
     .controller('Memento', Memento);
 
   /* @ngInject */
-  function Memento(DataHandler, $stateParams, $state, $ionicHistory) {
+  function Memento(DataHandler, $stateParams, $state, $ionicHistory, Events) {
     /*jshint validthis: true */
     var vm = this;
     vm.mementoID = Number($stateParams.ID);
-    vm.memento = DataHandler.mementos.get(vm.mementoID);
-
-    vm.goToMementos = goToMementos;
+    vm.memento = {};
+    
+    vm.getMemento       = getMemento;
+    vm.goToMementos     = goToMementos;
     vm.goToMomentCreate = goToMomentCreate;
     vm.showLoadProgress = showLoadProgress;
     vm.hideLoadProgress = hideLoadProgress;
+
+    activate()
+
+    ////////////////////////////////////////////////////////////
+
+    function activate() {
+      vm.getMemento();
+
+      Events.on('newMoment', function() {
+        vm.getMemento();
+      })
+    }
+
+    function getMemento() {
+      vm.memento = DataHandler.mementos.get(vm.mementoID);
+    }
 
     function goToMementos () {
       $state.go('mementos');
