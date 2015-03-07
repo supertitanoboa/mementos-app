@@ -7,7 +7,7 @@
   
   /*FIXME: makesure ngInject is working during minification*/
   /* @ngInject */ 
-  function dataservice($http, $q, upload) {
+  function dataservice($http, $q, upload, uuid4) {
     var hostURL = 'http://mementos.io';
 
     var service = {
@@ -194,7 +194,8 @@
         // 'Cache-Control' : 'no-cache' in the headers.
         params: {
           'timestamp': new Date().valueOf(),
-          'sessionID': sessionID
+          'sessionID': sessionID,
+          'hashedPayload': uuid4.generate()
         }
       })
       .success(function(result){
@@ -239,4 +240,3 @@
 
   }
 })();
-
