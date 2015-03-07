@@ -47,8 +47,9 @@
       vm.mementos = DataHandler.mementos.getAll();
     }
 
-    function addMoment(memento) {
-      vm.moment = DataHandler.moment.get();
+    function addMoment(mementoID) {
+      var memento = DataHandler.mementos.get(mementoID);
+      vm.moment   = DataHandler.moment.get();
 
       if (vm.moment.hasOwnProperty('ID')) {
         DataHandler.memento.set(memento);      
@@ -62,6 +63,7 @@
           // NOTE: reset moment back to an empty object
           vm.moment = DataHandler.moment.set({});
 
+          Events.trigger('newMoment');
           vm.goToMemento(updatedMemento.ID);
         })
         .catch(function(err) {

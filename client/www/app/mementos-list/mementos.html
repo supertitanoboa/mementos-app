@@ -11,7 +11,7 @@
     <ion-item class="mementos-title-bg" href="#/mementocreate" class="item-icon-left left-create-icon">
       <i class="icon ion-plus"></i>     Create a Memento</ion-item>
       
-    <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-left left-memento-icon" on-tap="vm.addMoment({{ memento }})">
+    <ion-item ng-repeat="memento in vm.mementos.created" class="item-icon-left left-memento-icon" on-tap="vm.addMoment({{ memento.ID }})">
       <i class="icon ion-ios7-moon memento-icon-created"></i>
       {{memento.title}}
     </ion-item>

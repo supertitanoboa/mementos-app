@@ -91,7 +91,7 @@
     function saveMomentModel() {
       var user   = UserModel.get();
       var moment = MomentModel.get();
-      // TODO: Save to Local Storage first      
+      // TODO: Save to Local Storage first
       return dataservice.saveMoment(moment, user.sessionID);
     }
 

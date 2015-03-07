@@ -12,12 +12,12 @@
       showIncorrectPassword: showIncorrectPassword,
       showUserDoesNotExist: showUserDoesNotExist,
       showUserExists: showUserExists,
-      errorSavingMoment: errorSavingMoment
+      errorSavingMoment: errorSavingMoment,
+      errorSavingMemento: errorSavingMemento
     };
 
     return service;
    
-   // FIXME: need to add alerts of temporary div invalid password and emails    
    function showIncorrectPassword() {
      var alertPopup = $ionicPopup.alert({
        title: 'Incorrect Password',
@@ -45,6 +45,14 @@
        template: 'Whoops, there was an error saving your moment! Please try again'
      });
    };
+
+   function errorSavingMemento() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Error Saving Memento',
+       template: 'Whoops, there was an error saving your memento! Please try again'
+     });
+   };
+
   }
 
 })();
