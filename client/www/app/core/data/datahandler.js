@@ -27,7 +27,8 @@
       activate : activate,
       mementos : mementos,
       memento  : memento,
-      moment   : moment
+      moment   : moment,
+      user     : UserModel
   	};
 
   	return dataHandler;

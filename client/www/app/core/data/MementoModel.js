@@ -10,6 +10,7 @@
     var mementoModel = {
       constructor: constructor,
       set: set,
+      reset: reset,
       get: get,
       add: add
     };
@@ -20,6 +21,10 @@
     
     function set(newMemento) {
       memento = angular.copy(newMemento);
+    }
+
+    function reset() {
+      memento = {};
     }
 
     function get() {

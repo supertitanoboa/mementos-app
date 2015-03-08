@@ -9,6 +9,7 @@
 
     var momentModel = {
       set: set,
+      reset: reset,
       get: get,
       constructor: constructor
     };
@@ -18,6 +19,10 @@
     function set(newMoment) {
       moment = angular.copy(newMoment);
       return newMoment;
+    }
+
+    function reset() {
+      moment = {};
     }
 
     function get() {

@@ -9,6 +9,7 @@
 
     var userModel = {
       set: set,
+      reset: reset,
       get: get
     };
 
@@ -16,6 +17,10 @@
 
     function set(newUser) {
       user = angular.copy(newUser);
+    }
+
+    function reset() {
+      user = {};
     }
     
     function get() {
