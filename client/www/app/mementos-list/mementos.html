@@ -1,8 +1,7 @@
-<!-- FIXME: need different behavior based on which mode (moment created or not) -->
-<ion-view view-title="All Mementos">
+<ion-view view-title="{{vm.title}}">
 
   <ion-nav-buttons side="secondary">
-    <button ng-hide="" on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled circleplus"></button>
+    <button ng-hide="vm.moment.hasOwnProperty('ID')" on-tap="vm.goToMomentCreate()" class="button button-icon icon ion-plus-circled circleplus"></button>
   </ion-nav-buttons>
 
   <ion-content class="mementos-content">

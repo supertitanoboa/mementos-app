@@ -13,6 +13,7 @@
     vm.memento = {};
     
     vm.getMemento       = getMemento;
+    vm.normalizeDate    = normalizeDate;
     vm.goToMementos     = goToMementos;
     vm.goToMomentCreate = goToMomentCreate;
     vm.showLoadProgress = showLoadProgress;
@@ -28,6 +29,10 @@
       Events.on('newMoment', function() {
         vm.getMemento();
       })
+    }
+
+    function normalizeDate(moment) {
+      return new Date(moment.releaseDate).getTime();
     }
 
     function getMemento() {

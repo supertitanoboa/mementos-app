@@ -9,12 +9,13 @@
   function Mementos(DataHandler, Events, $state, $ionicLoading) {
     /*jshint validthis: true */
     var vm = this;
-    vm.title    = 'Mementos';
+    vm.title = 'All Mementos';
     vm.mementos = {};
-    vm.moment   = DataHandler.moment.get();
-
+    vm.moment   = {};
+    
     vm.addMoment        = addMoment;
     vm.getMementos      = getMementos;
+    vm.getMoment        = getMoment;
     vm.goToMomentCreate = goToMomentCreate;
     vm.goToMemento      = goToMemento;
     vm.showLoadProgress = showLoadProgress;
@@ -40,6 +41,9 @@
         vm.getMementos();
       })
 
+      Events.on('newMoment', function() {
+        vm.getMoment();
+      })
 
     }
 
@@ -47,9 +51,12 @@
       vm.mementos = DataHandler.mementos.getAll();
     }
 
+    function getMoment() {
+      vm.moment = DataHandler.moment.get();
+    }
+
     function addMoment(mementoID) {
       var memento = DataHandler.mementos.get(mementoID);
-      vm.moment   = DataHandler.moment.get();
 
       if (vm.moment.hasOwnProperty('ID')) {
         DataHandler.memento.set(memento);      
@@ -63,7 +70,6 @@
           // NOTE: reset moment back to an empty object
           vm.moment = DataHandler.moment.set({});
 
-          Events.trigger('newMoment');
           vm.goToMemento(updatedMemento.ID);
         })
         .catch(function(err) {
