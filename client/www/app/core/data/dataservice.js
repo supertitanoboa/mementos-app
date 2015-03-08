@@ -160,7 +160,7 @@
           running++;
           uploadItem(items[index], sessionID)
             .then(function(S3Data) {
-              momentItems.push({type: S3Data.config.url.split('type=')[1], url: S3Data.data.url});
+              momentItems[index] = {type: S3Data.config.url.split('type=')[1], url: S3Data.data.url};
               running--;
               unfinished--;
 

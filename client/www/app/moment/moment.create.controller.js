@@ -6,7 +6,7 @@
     .controller('MomentCreate', MomentCreate);
 
   /* @ngInject */
-  function MomentCreate($state, DataHandler, DatePicker, Alerts, $ionicHistory, $ionicLoading) {
+  function MomentCreate($state, DataHandler, DatePicker, Alerts, $ionicHistory, $ionicLoading, Events) {
     /*jshint validthis: true */
     var vm = this;
     vm.time = null;
@@ -44,7 +44,8 @@
         vm.time = null;
         vm.date = null;
         vm.currentMoment = new DataHandler.moment.constructor();
-
+        
+        Events.trigger('newMoment');
         $state.go('mementos');
       })
       .catch(function(err) {
