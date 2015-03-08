@@ -47,6 +47,24 @@
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
   })
 
+  .config(function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({
+      lines: 11, // The number of lines to draw
+      length: 21, // The length of each line
+      width: 2, // The line thickness
+      radius: 19, // The radius of the inner circle
+      corners: 1, // Corner roundness (0..1)
+      rotate: 0, // The rotation offset
+      direction: 1, // 1: clockwise, -1: counterclockwise
+      color: '#000', // #rgb or #rrggbb or array of colors
+      speed: 0.8, // Rounds per second
+      trail: 48, // Afterglow percentage
+      // shadow: true, // Whether to render a shadow    
+      top: '50%', // Top position relative to parent
+      left: '50%' // Left position relative to parent
+    });
+  })
+
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider

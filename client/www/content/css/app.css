@@ -12,6 +12,7 @@
   height: auto;
   width: auto;
   max-width: 85vw;
+  min-height: 75vw;
   margin: 0 auto;
 }
 
