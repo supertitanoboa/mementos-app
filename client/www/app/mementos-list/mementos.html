@@ -20,7 +20,7 @@
       
       <div class="item item-divider received-mementos">Received</div>
 
-      <ion-item ng-repeat="memento in vm.mementos.received" class="item-icon-left left-memento-icon" on-tap="vm.goToMemento({{memento.ID}})">
+      <ion-item ng-repeat="memento in vm.mementos.received" class="item-icon-left left-memento-icon" on-tap="vm.goToMemento({{memento.ID}}, 'received')">
         <i class="icon ion-ios7-moon memento-icon-received"></i>
         {{memento.title}}
       </ion-item>

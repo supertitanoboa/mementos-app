@@ -19,7 +19,6 @@
       set: set,
       reset: reset,
       getAll: getAll,
-      findByViewer: findByViewer,
       updateOrInsert: updateOrInsert,
       isUpdating: true
     };
@@ -68,7 +67,7 @@
       }
     }
 
-    function findByViewer(ID, viewer) {
+    function get(ID, viewer) {
       var memento;
       var i;
 
@@ -79,11 +78,6 @@
         }
       }
       return null;
-    }
-
-    function get(ID) {      
-      var mementoInCreated = findByViewer(ID, 'created');
-      return  mementoInCreated ? mementoInCreated : findByViewer(ID, 'received');
     }
   }
 

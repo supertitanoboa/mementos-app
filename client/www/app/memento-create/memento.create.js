@@ -69,7 +69,10 @@
 
       Events.trigger('newMemento');
       vm.currentMemento = new DataHandler.memento.constructor();      
-      $state.go('memento', { ID: memento.ID });
+      $state.go('memento', { 
+        ID: memento.ID,
+        viewer: 'created'
+      });
     }
 
     function addMomentToMemento(moment) {

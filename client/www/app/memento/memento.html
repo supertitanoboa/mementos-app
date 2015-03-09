@@ -19,8 +19,7 @@
       <div class="moment-release-date">Release Date: {{moment.releaseDate | date: 'MMM d, y h:mm a'}}</div>
       
       <div ng-repeat="item in moment.content">
-        
-        <show-text ng-if="item.type === 'text/plain'"></show-text>
+        <show-text  ng-if="item.type === 'text/plain'"></show-text>
         <show-image ng-if="item.type === 'image/jpeg'"></show-image>
       </div>
     

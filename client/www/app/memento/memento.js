@@ -10,7 +10,8 @@
     /*jshint validthis: true */
     var vm = this;
     vm.mementoID = Number($stateParams.ID);
-    vm.memento = {};
+    vm.viewer    = $stateParams.viewer;
+    vm.memento   = {};
     
     vm.getMemento       = getMemento;
     vm.normalizeDate    = normalizeDate;
@@ -28,7 +29,7 @@
 
       Events.on('newMoment', function() {
         vm.getMemento();
-      })
+      });
     }
 
     function normalizeDate(moment) {
@@ -36,7 +37,7 @@
     }
 
     function getMemento() {
-      vm.memento = DataHandler.mementos.get(vm.mementoID);
+      vm.memento = DataHandler.mementos.get(vm.mementoID, vm.viewer);
     }
 
     function goToMementos () {
@@ -74,4 +75,3 @@
     
   }
 })();
-
