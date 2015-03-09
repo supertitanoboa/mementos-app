@@ -9,13 +9,13 @@
 
     <div class="list moment-top">
       <label class="item item-input moment-title">
-        <input type="text" ng-model="vm.currentMoment.title" placeholder="Name Your Moment"/>
+        <input type="text" ng-model="vm.currentMoment.title" placeholder="Name This Moment"/>
       </label>
     </div>
 
     <!-- // ng-repeat over all items in the moment -->
     <div class="items">
-      <div ng-repeat="item in vm.currentMoment.content">
+      <div ng-repeat="item in vm.currentMoment.content" class="moment-content">
         <show-text  ng-if="item.type === 'text/plain' "></show-text>
         <show-image ng-if="item.type === 'image/jpeg'"></show-image>
         <show-audio ng-if="item.type === 'audio'"></show-audio>
@@ -32,7 +32,7 @@
       {{vm.date ? (vm.date | date : 'longDate') : 'Date'}}
     </button>
     
-    <button class="button button-clear date-time rtime" on-tap="vm.showTimePicker(vm.date)">
+    <button ng-disabled="!vm.date" class="button button-clear date-time rtime" on-tap="vm.showTimePicker(vm.date)">
       {{vm.time ? (vm.time | date : 'shortTime') : 'Time'}}
     </button>
     

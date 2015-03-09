@@ -13,6 +13,7 @@
     vm.date = null;
     vm.releaseDate;
     vm.currentMoment = new DataHandler.moment.constructor();
+    vm.delay = false;
 
     vm.goBack = goBack;
     vm.saveMoment = saveMoment;
