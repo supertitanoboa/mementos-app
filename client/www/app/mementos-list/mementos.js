@@ -13,9 +13,9 @@
     vm.mementos = {};
     vm.moment   = {};
     
+    vm.setTitle         = setTitle;
     vm.addMoment        = addMoment;
-    vm.getMementos      = getMementos;
-    vm.getMoment        = getMoment;
+    vm.refresh          = refresh;
     vm.goToMomentCreate = goToMomentCreate;
     vm.goToMemento      = goToMemento;
     vm.showLoadProgress = showLoadProgress;
@@ -30,29 +30,27 @@
       if (DataHandler.mementos.isUpdating) {
         vm.showLoadProgress();
         Events.on('mementosUpdateComplete', function() {
-          vm.getMementos();
+          vm.refresh();
           vm.hideLoadProgress();
         });
       } else {
-        vm.getMementos();        
+        vm.refresh();        
       }
 
       Events.on('newMemento', function() {
-        vm.getMementos();
+        vm.refresh();
       })
 
       Events.on('newMoment', function() {
-        vm.getMoment();
+        vm.refresh();
       })
 
     }
 
-    function getMementos() {
+    function refresh() {
       vm.mementos = DataHandler.mementos.getAll();
-    }
-
-    function getMoment() {
-      vm.moment = DataHandler.moment.get();
+      vm.moment   = DataHandler.moment.get();
+      vm.setTitle();
     }
 
     function addMoment(mementoID) {
@@ -63,13 +61,12 @@
         return DataHandler.memento.addMoment(vm.moment)
         .then(function(data) {
           console.log('Memento has been updated');
-          var updatedMemento = DataHandler.memento.get(); 
-          // NOTE: sets moment back to an empty object
-          DataHandler.mementos.updateOrInsert(updatedMemento, 'created');
-          
-          // NOTE: reset moment back to an empty object
-          vm.moment = DataHandler.moment.set({});
 
+          var updatedMemento = DataHandler.memento.get(); 
+          DataHandler.mementos.updateOrInsert(updatedMemento, 'created');
+          vm.moment = DataHandler.moment.set({});
+          Events.trigger('newMoment');
+          
           vm.goToMemento(updatedMemento.ID);
         })
         .catch(function(err) {
@@ -77,6 +74,16 @@
         })
       } else {
         vm.goToMemento(memento.ID);
+      }
+    }
+    
+    // FIXME: bug where 'Choose a Memento' shows immediately after a moment has been added
+    function setTitle() {
+      console.log('###########', vm.moment)
+      if (vm.moment.hasOwnProperty('ID')) {
+        vm.title = 'Choose a Memento';
+      } else {
+        vm.title = 'All Mementos';
       }
     }
 
