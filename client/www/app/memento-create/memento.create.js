@@ -10,7 +10,7 @@
     /*jshint validthis: true */
     var vm = this;
     vm.title = 'Create Memento';
-    vm.currentMemento = new DataHandler.memento.constructor();
+    vm.currentMemento     = new DataHandler.memento.constructor();
     vm.recipient          = '';
     
     vm.saveMemento        = saveMemento;
