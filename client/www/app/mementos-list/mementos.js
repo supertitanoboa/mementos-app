@@ -54,7 +54,8 @@
     }
 
     function addMoment(mementoID) {
-      var memento = DataHandler.mementos.get(mementoID);
+      var memento = DataHandler.mementos.get(mementoID, 'created');
+      vm.moment   = DataHandler.moment.get();
 
       if (vm.moment.hasOwnProperty('ID')) {
         DataHandler.memento.set(memento);      
@@ -71,9 +72,9 @@
         })
         .catch(function(err) {
           console.error('There was an error updating the memento:', err);
-        })
+        });
       } else {
-        vm.goToMemento(memento.ID);
+        vm.goToMemento(memento.ID, 'created');
       }
     }
     
@@ -87,9 +88,12 @@
       }
     }
 
-    function goToMemento(mementoID) {      
-      $state.go('memento', {ID: mementoID});
-    }    
+    function goToMemento(mementoID, viewer) {
+      $state.go('memento', {
+        ID: mementoID,
+        viewer: viewer
+      });
+    }
     
     function goToMomentCreate () {
 

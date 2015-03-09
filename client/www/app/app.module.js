@@ -90,7 +90,7 @@
       })
         // nested state
         .state('memento', {
-          url: '/mementos/:ID',
+          url: '/mementos/{viewer}/:ID',
           templateUrl: 'app/memento/memento.html',
           controller: 'Memento as vm'
         })
