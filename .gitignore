@@ -12,6 +12,7 @@ client/hooks/
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 client/platforms/
+platforms/
 client/plugins/
 client/www/lib/
 coverage/
