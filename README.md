@@ -17,7 +17,7 @@ Documentation has been provided in several different places:
 
 ### Installing Dependencies & Build Process
 
-Please follow the steps outlined in the [Build Process Wiki](https://github.com/supertitanoboa/mementos-app/wiki/Build-Process).
+Please follow the steps outlined in the [Build Process Wiki](https://github.com/supertitanoboa/mementos-app/wiki/iOS-Build-&-Deployment).
 
 ## Contributing
 
