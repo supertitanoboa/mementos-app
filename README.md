@@ -8,7 +8,7 @@ Connect the future with the present. Send moments to your loved ones to experien
   - __Scrum Master__: [Wesley Smith](https://github.com/wesleysmyth)
   - __Development Team Members__: [Omar Duarte](https://github.com/omarduarte), [Alan Sun](https://github.com/zheshishei)
 
-### Documentation
+## Documentation
 
 Documentation has been provided in several different places: 
 
@@ -16,7 +16,7 @@ Documentation has been provided in several different places:
 2. The [docs](https://github.com/supertitanoboa/mementos-app/tree/master/docs)
 3. Extensive commenting throughout the code itself
 
-### Installing Dependencies & Build Process
+## Installing Dependencies & Build Process
 
 Please follow the steps outlined in the [Build Process Wiki](https://github.com/supertitanoboa/mementos-app/wiki/iOS-Build-&-Deployment).
 
