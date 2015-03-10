@@ -20,6 +20,8 @@ Documentation has been provided in several different places:
 
 Please follow the steps outlined in the [Build Process Wiki](https://github.com/supertitanoboa/mementos-app/wiki/iOS-Build-&-Deployment).
 
+For information regarding the mementos server and database, please see [mementos-server](https://github.com/supertitanoboa/mementos-server)
+
 ## Contributing
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
